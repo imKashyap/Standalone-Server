@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #777;
+  padding: 30px;
+  background-color:dimgray;
+}
+
+.header {
+  position: relative;
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(57, 53, 68, 0.8),
+      rgba(20, 17, 34, 0.8)
+    ),
+    url(https://www.capcitycreative.ca/wp-content/uploads/2017/01/slider-background.jpeg);
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+
+.text-box {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text-box-login {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+}
+
+.button-box {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button-box button {
+  padding: 15px;
+  margin-left: 40px;
+  background: none;
+  box-shadow: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+
+.button-box button:hover {
+  background-color: rgba(20, 17, 34, 1);
+  color: #fff;
+  transform: scale(1.01);
+}
+
+.button-box button a {
+  text-decoration: none;
+  font-size: 40px;
+  color: #fff;
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
+}
+
+.email {
+  font-size: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  outline: 0px;
+}
+
+.btn {
+  padding: 15px 185px 15px 180px;
+  margin-top: 40px;
+  background: none;
+  box-shadow: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 30px;
+}
+.btn:hover {
+  background-color: rgba(20, 17, 34, 1);
+  color: #fff;
+  transform: scale(1.01);
+}
+
+.btn-box {
+  position: absolute;
+  top: 140%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.password-label {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+}
+.email-label {
+  position: absolute;
+  top: -20%;
+  left: 2%;
+}
+
+.email-label-register {
+  position: absolute;
+  top: 26%;
+  left: 2%;
+}
+
+.name-label-register {
+  position: absolute;
+  top: -12%;
+  left: 2%;
+}
+
+.password-label-register {
+  position: absolute;
+  top: 64%;
+  left: 2%;
+}
+
+strong {
+  font-size: 20px;
+}
+.btn-box-register {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-register {
+  padding: 15px 175px 15px 150px;
+  margin-top: 40px;
+  background: none;
+  box-shadow: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 30px;
+}
+.btn-register:hover {
+  background-color: rgba(20, 17, 34, 1);
+  color: #fff;
+  transform: scale(1.01);
+}

@@ -1,0 +1,14 @@
+{
+  "verbose": false,
+  "watch": [
+    "bin",
+    "lib",
+    "public"
+
+  ],
+  "ext": "dart",
+  "exec": "dart bin/server.dart && dart2js -o public/assets/login.js lib/interops/login.dart",
+  "execMap": {
+    "dart": "dart"
+  }
+}
