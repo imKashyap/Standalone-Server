@@ -5,7 +5,7 @@ const _port = 4040;
 Future<void> main(List<String> args) async {
   final app = routes();
   var handler = Pipeline()
-      .addMiddleware(logRequests())
+      //.addMiddleware(logRequests())
       .addMiddleware(handleCors())
       .addMiddleware(handleAuth(Env.secretKey))
       .addHandler(app);

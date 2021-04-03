@@ -7,7 +7,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:shelf/shelf.dart';
 
 Middleware handleCors() {
-  const corsHeaders = {
+  var corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
     'Access-Control-Allow-Headers': 'Origin, Content-Type',
@@ -75,7 +75,7 @@ Middleware handleAuth(String secret) {
   };
 }
 
-Middleware checkAuthorisation() {
+Middleware checkAuthorization() {
   return createMiddleware(
     requestHandler: (Request request) {
       if (request.context['authDetails'] == null) {

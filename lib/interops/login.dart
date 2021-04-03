@@ -10,6 +10,7 @@ void main(List<String> args) {
 void submitHandler(MouseEvent event) async {
   var email = (querySelector('#email-input') as InputElement).value;
   var pass = (querySelector('#pass-input') as InputElement).value;
+  event.preventDefault();
   final url = 'http://localhost:4040/auth/login';
   final response = await http.post(
     url,
@@ -18,18 +19,17 @@ void submitHandler(MouseEvent event) async {
       'password': pass,
     }),
   );
-  event.preventDefault();
   var token = json.decode(response.body)['token'];
   window.console.log(token);
+  event.preventDefault();
   final validate = 'http://localhost:4040/validate/';
   var res = await http.get(validate,
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+  event.preventDefault();
   if (res.statusCode == 200) {
-    window.console.log('yes');
-    document.cookie = 'token=$token';
+    window.localStorage['token'] = token;
     document.window.location.href = 'http://localhost:4040/dashboard/';
   } else {
-    window.console.log('no');
     document.window.location.href = '/';
   }
 }

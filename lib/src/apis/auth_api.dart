@@ -148,7 +148,7 @@ class AuthApi with InputValidator {
 
       return Response.ok(json.encode({'token': token}), headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
-        HttpHeaders.authorizationHeader: 'Bearer $token'
+        HttpHeaders.authorizationHeader: 'Bearer $token',
       });
     } catch (e) {
       print(e);

@@ -306,19 +306,31 @@
       var t1 = $name !== "Object" && $name !== "";
       return t1;
     },
+    iae: function(argument) {
+      throw H.wrapException(H.argumentErrorValue(argument));
+    },
     ioore: function(receiver, index) {
       if (receiver == null)
-        J.get$length$as(receiver);
+        J.get$length$asx(receiver);
       throw H.wrapException(H.diagnoseIndexError(receiver, index));
     },
     diagnoseIndexError: function(indexable, index) {
-      var $length, _s5_ = "index";
+      var t1, $length, t2, _s5_ = "index";
       if (!H._isInt(index))
         return new P.ArgumentError(true, index, _s5_, null);
-      $length = J.get$length$as(indexable);
-      if (index < 0 || index >= $length)
-        return new P.IndexError($length, true, index, _s5_, "Index out of range");
-      return P.RangeError$value(index, _s5_);
+      t1 = J.getInterceptor$asx(indexable);
+      $length = t1.get$length(indexable);
+      if (!(index < 0)) {
+        if (typeof $length !== "number")
+          return H.iae($length);
+        t2 = index >= $length;
+      } else
+        t2 = true;
+      if (t2) {
+        t1 = $length == null ? t1.get$length(indexable) : $length;
+        return new P.IndexError(t1, true, index, _s5_, "Index out of range");
+      }
+      return new P.RangeError(true, index, _s5_, "Value not in range");
     },
     argumentErrorValue: function(object) {
       return new P.ArgumentError(true, object, null, null);
@@ -587,23 +599,17 @@
       return t1 == null ? $.BoundClosure_selfFieldNameCache = H.BoundClosure_computeFieldNamed("self") : t1;
     },
     BoundClosure_computeFieldNamed: function(fieldName) {
-      var t1, i, $name,
+      var names, i, $name,
         template = new H.BoundClosure("self", "target", "receiver", "name"),
-        names = J.JSArray_markFixedList(Object.getOwnPropertyNames(template), type$.nullable_Object);
+        t1 = Object.getOwnPropertyNames(template);
+      t1.fixed$length = Array;
+      names = t1;
       for (t1 = names.length, i = 0; i < t1; ++i) {
         $name = names[i];
         if (template[$name] === fieldName)
           return $name;
       }
       throw H.wrapException(new P.ArgumentError(false, null, null, "Field name " + fieldName + " not found."));
-    },
-    boolConversionCheck: function(value) {
-      if (value == null)
-        H.assertThrow("boolean expression must not be null");
-      return value;
-    },
-    assertThrow: function(message) {
-      throw H.wrapException(new H._AssertionError(message));
     },
     throwCyclicInit: function(staticName) {
       throw H.wrapException(new P.CyclicInitializationError(staticName));
@@ -779,9 +785,6 @@
       _._name = t3;
     },
     RuntimeError: function RuntimeError(t0) {
-      this.message = t0;
-    },
-    _AssertionError: function _AssertionError(t0) {
       this.message = t0;
     },
     initHooks_closure: function initHooks_closure(t0) {
@@ -1317,7 +1320,7 @@
           argumentsText += sep;
           if (named[i + 1])
             argumentsText += "required ";
-          argumentsText += J.$add$ans(H._rtiToString(named[i + 2], genericContext), " ") + named[i];
+          argumentsText += J.$add$ns(H._rtiToString(named[i + 2], genericContext), " ") + named[i];
         }
         argumentsText += "}";
       }
@@ -1348,7 +1351,7 @@
         questionArgument = rti._primary;
         s = H._rtiToString(questionArgument, genericContext);
         argumentKind = questionArgument._kind;
-        return J.$add$ans(argumentKind === 11 || argumentKind === 12 ? C.JSString_methods.$add("(", s) + ")" : s, "?");
+        return J.$add$ns(argumentKind === 11 || argumentKind === 12 ? C.JSString_methods.$add("(", s) + ")" : s, "?");
       }
       if (kind === 8)
         return "FutureOr<" + H.S(H._rtiToString(rti._primary, genericContext)) + ">";
@@ -2234,10 +2237,6 @@
       var t1 = $._JS_INTEROP_INTERCEPTOR_TAG;
       return t1 == null ? $._JS_INTEROP_INTERCEPTOR_TAG = init.getIsolateTag("_$dart_js") : t1;
     },
-    JSArray_markFixedList: function(list, $T) {
-      list.fixed$length = Array;
-      return list;
-    },
     getInterceptor$: function(receiver) {
       if (typeof receiver == "number") {
         if (Math.floor(receiver) == receiver)
@@ -2261,31 +2260,34 @@
         return receiver;
       return J.getNativeInterceptor(receiver);
     },
-    getInterceptor$ans: function(receiver) {
+    getInterceptor$a: function(receiver) {
+      if (receiver == null)
+        return receiver;
+      if (receiver.constructor == Array)
+        return J.JSArray.prototype;
+      if (!(receiver instanceof P.Object))
+        return J.UnknownJavaScriptObject.prototype;
+      return receiver;
+    },
+    getInterceptor$asx: function(receiver) {
+      if (typeof receiver == "string")
+        return J.JSString.prototype;
+      if (receiver == null)
+        return receiver;
+      if (receiver.constructor == Array)
+        return J.JSArray.prototype;
+      if (typeof receiver != "object") {
+        if (typeof receiver == "function")
+          return J.JavaScriptFunction.prototype;
+        return receiver;
+      }
+      if (receiver instanceof P.Object)
+        return receiver;
+      return J.getNativeInterceptor(receiver);
+    },
+    getInterceptor$ns: function(receiver) {
       if (typeof receiver == "number")
         return J.JSNumber.prototype;
-      if (typeof receiver == "string")
-        return J.JSString.prototype;
-      if (receiver == null)
-        return receiver;
-      if (receiver.constructor == Array)
-        return J.JSArray.prototype;
-      if (!(receiver instanceof P.Object))
-        return J.UnknownJavaScriptObject.prototype;
-      return receiver;
-    },
-    getInterceptor$as: function(receiver) {
-      if (typeof receiver == "string")
-        return J.JSString.prototype;
-      if (receiver == null)
-        return receiver;
-      if (receiver.constructor == Array)
-        return J.JSArray.prototype;
-      if (!(receiver instanceof P.Object))
-        return J.UnknownJavaScriptObject.prototype;
-      return receiver;
-    },
-    getInterceptor$s: function(receiver) {
       if (typeof receiver == "string")
         return J.JSString.prototype;
       if (receiver == null)
@@ -2309,19 +2311,22 @@
     set$href$x: function(receiver, value) {
       return J.getInterceptor$x(receiver).set$href(receiver, value);
     },
-    get$length$as: function(receiver) {
-      return J.getInterceptor$as(receiver).get$length(receiver);
+    get$iterator$a: function(receiver) {
+      return J.getInterceptor$a(receiver).get$iterator(receiver);
+    },
+    get$length$asx: function(receiver) {
+      return J.getInterceptor$asx(receiver).get$length(receiver);
     },
     get$location$x: function(receiver) {
       return J.getInterceptor$x(receiver).get$location(receiver);
     },
-    $add$ans: function(receiver, a0) {
+    $add$ns: function(receiver, a0) {
       if (typeof receiver == "number" && typeof a0 == "number")
         return receiver + a0;
-      return J.getInterceptor$ans(receiver).$add(receiver, a0);
+      return J.getInterceptor$ns(receiver).$add(receiver, a0);
     },
-    startsWith$1$s: function(receiver, a0) {
-      return J.getInterceptor$s(receiver).startsWith$1(receiver, a0);
+    forEach$1$x: function(receiver, a0) {
+      return J.getInterceptor$x(receiver).forEach$1(receiver, a0);
     },
     toString$0$: function(receiver) {
       return J.getInterceptor$(receiver).toString$0(receiver);
@@ -2364,6 +2369,56 @@
     }
   },
   P = {
+    IterableBase_iterableToFullString: function(iterable, leftDelimiter, rightDelimiter) {
+      var buffer, t1;
+      if (P._isToStringVisiting(iterable))
+        return leftDelimiter + "..." + rightDelimiter;
+      buffer = new P.StringBuffer(leftDelimiter);
+      C.JSArray_methods.add$1($._toStringVisiting, iterable);
+      try {
+        t1 = buffer;
+        t1._contents = P.StringBuffer__writeAll(t1._contents, iterable, ", ");
+      } finally {
+        if (0 >= $._toStringVisiting.length)
+          return H.ioore($._toStringVisiting, -1);
+        $._toStringVisiting.pop();
+      }
+      buffer._contents += rightDelimiter;
+      t1 = buffer._contents;
+      return t1.charCodeAt(0) == 0 ? t1 : t1;
+    },
+    _isToStringVisiting: function(o) {
+      var t1, i;
+      for (t1 = $._toStringVisiting.length, i = 0; i < t1; ++i)
+        if (o === $._toStringVisiting[i])
+          return true;
+      return false;
+    },
+    MapBase_mapToString: function(m) {
+      var result, t1 = {};
+      if (P._isToStringVisiting(m))
+        return "{...}";
+      result = new P.StringBuffer("");
+      try {
+        C.JSArray_methods.add$1($._toStringVisiting, m);
+        result._contents += "{";
+        t1.first = true;
+        J.forEach$1$x(m, new P.MapBase_mapToString_closure(t1, result));
+        result._contents += "}";
+      } finally {
+        if (0 >= $._toStringVisiting.length)
+          return H.ioore($._toStringVisiting, -1);
+        $._toStringVisiting.pop();
+      }
+      t1 = result._contents;
+      return t1.charCodeAt(0) == 0 ? t1 : t1;
+    },
+    MapBase_mapToString_closure: function MapBase_mapToString_closure(t0, t1) {
+      this._box_0 = t0;
+      this.result = t1;
+    },
+    MapMixin: function MapMixin() {
+    },
     Error__objectToString: function(object) {
       if (object instanceof H.Closure)
         return object.toString$0(0);
@@ -2397,9 +2452,6 @@
     ArgumentError$value: function(value, $name, message) {
       return new P.ArgumentError(true, value, $name, message);
     },
-    RangeError$value: function(value, $name) {
-      return new P.RangeError(null, null, true, value, $name, "Value not in range");
-    },
     UnsupportedError$: function(message) {
       return new P.UnsupportedError(message);
     },
@@ -2423,14 +2475,12 @@
       _.name = t2;
       _.message = t3;
     },
-    RangeError: function RangeError(t0, t1, t2, t3, t4, t5) {
+    RangeError: function RangeError(t0, t1, t2, t3) {
       var _ = this;
-      _.start = t0;
-      _.end = t1;
-      _._hasValue = t2;
-      _.invalidValue = t3;
-      _.name = t4;
-      _.message = t5;
+      _._hasValue = t0;
+      _.invalidValue = t1;
+      _.name = t2;
+      _.message = t3;
     },
     IndexError: function IndexError(t0, t1, t2, t3, t4) {
       var _ = this;
@@ -2458,31 +2508,6 @@
     },
     StringBuffer: function StringBuffer(t0) {
       this._contents = t0;
-    },
-    IterableBase_iterableToFullString: function(iterable, leftDelimiter, rightDelimiter) {
-      var buffer, t1;
-      if (P._isToStringVisiting(iterable))
-        return leftDelimiter + "..." + rightDelimiter;
-      buffer = new P.StringBuffer(leftDelimiter);
-      C.JSArray_methods.add$1($._toStringVisiting, iterable);
-      try {
-        t1 = buffer;
-        t1._contents = P.StringBuffer__writeAll(t1._contents, iterable, ", ");
-      } finally {
-        if (0 >= $._toStringVisiting.length)
-          return H.ioore($._toStringVisiting, -1);
-        $._toStringVisiting.pop();
-      }
-      buffer._contents += rightDelimiter;
-      t1 = buffer._contents;
-      return t1.charCodeAt(0) == 0 ? t1 : t1;
-    },
-    _isToStringVisiting: function(o) {
-      var t1, i;
-      for (t1 = $._toStringVisiting.length, i = 0; i < t1; ++i)
-        if (o === $._toStringVisiting[i])
-          return true;
-      return false;
     }
   },
   W = {
@@ -2511,6 +2536,11 @@
     },
     Node: function Node() {
     },
+    Storage: function Storage() {
+    },
+    Storage_keys_closure: function Storage_keys_closure(t0) {
+      this.keys = t0;
+    },
     Window: function Window() {
     },
     _DOMWindowCrossFrame: function _DOMWindowCrossFrame(t0) {
@@ -2518,27 +2548,21 @@
     },
     _LocationCrossFrame: function _LocationCrossFrame(t0) {
       this._location = t0;
+    },
+    _Storage_Interceptor_MapMixin: function _Storage_Interceptor_MapMixin() {
     }
   },
   Z = {
     main: function(args) {
-      var t1 = document,
-        cookieValue = C.JSArray_methods.firstWhere$2$orElse(H.setRuntimeTypeInfo(t1.cookie.split("; "), type$.JSArray_String), new Z.main_closure(), new Z.main_closure0());
-      if (cookieValue == null)
-        J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(t1.defaultView)), "/");
+      var t1;
+      if (window.localStorage.getItem("token") == null)
+        J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(document.defaultView)), "/");
       else {
         window;
-        t1 = cookieValue.split("=");
-        if (1 >= t1.length)
-          return H.ioore(t1, 1);
-        t1 = t1[1];
+        t1 = window.localStorage.getItem("token");
         if (typeof console != "undefined")
           window.console.log(t1);
       }
-    },
-    main_closure: function main_closure() {
-    },
-    main_closure0: function main_closure0() {
     }
   };
   var holders = [C, H, J, P, W, Z];
@@ -2583,23 +2607,11 @@
         H.throwExpression(P.UnsupportedError$("add"));
       receiver.push(value);
     },
-    firstWhere$2$orElse: function(receiver, test, orElse) {
-      var end, i, element,
-        t1 = H._arrayInstanceType(receiver);
-      t1._eval$1("bool(1)")._as(test);
-      t1._eval$1("1()?")._as(orElse);
-      end = receiver.length;
-      for (i = 0; i < end; ++i) {
-        element = receiver[i];
-        if (H.boolConversionCheck(test.call$1(element)))
-          return element;
-        if (receiver.length !== end)
-          throw H.wrapException(P.ConcurrentModificationError$(receiver));
-      }
-      return orElse.call$0();
-    },
     toString$0: function(receiver) {
       return P.IterableBase_iterableToFullString(receiver, "[", "]");
+    },
+    get$iterator: function(receiver) {
+      return new J.ArrayIterator(receiver, receiver.length, H._arrayInstanceType(receiver)._eval$1("ArrayIterator<1>"));
     },
     get$length: function(receiver) {
       return receiver.length;
@@ -2608,6 +2620,9 @@
   };
   J.JSUnmodifiableArray.prototype = {};
   J.ArrayIterator.prototype = {
+    get$current: function() {
+      return this._current;
+    },
     moveNext$0: function() {
       var t2, _this = this,
         t1 = _this._iterable,
@@ -2633,8 +2648,7 @@
         return "-0.0";
       else
         return "" + receiver;
-    },
-    $isnum: 1
+    }
   };
   J.JSInt.prototype = {$isint: 1};
   J.JSDouble.prototype = {};
@@ -2644,19 +2658,12 @@
         throw H.wrapException(P.ArgumentError$value(other, null, null));
       return receiver + other;
     },
-    startsWith$1: function(receiver, pattern) {
-      var otherLength = pattern.length;
-      if (otherLength > receiver.length)
-        return false;
-      return pattern === receiver.substring(0, otherLength);
-    },
     toString$0: function(receiver) {
       return receiver;
     },
     get$length: function(receiver) {
       return receiver.length;
     },
-    $isPattern: 1,
     $isString: 1
   };
   H.LateError.prototype = {
@@ -2700,11 +2707,6 @@
       return "RuntimeError: " + this.message;
     }
   };
-  H._AssertionError.prototype = {
-    toString$0: function(_) {
-      return "Assertion failed: " + P.Error_safeToString(this.message);
-    }
-  };
   H.initHooks_closure.prototype = {
     call$1: function(o) {
       return this.getTag(o);
@@ -2738,6 +2740,36 @@
     }
   };
   H._TypeError.prototype = {};
+  P.MapBase_mapToString_closure.prototype = {
+    call$2: function(k, v) {
+      var t2,
+        t1 = this._box_0;
+      if (!t1.first)
+        this.result._contents += ", ";
+      t1.first = false;
+      t1 = this.result;
+      t2 = t1._contents += H.S(k);
+      t1._contents = t2 + ": ";
+      t1._contents += H.S(v);
+    },
+    $signature: 3
+  };
+  P.MapMixin.prototype = {
+    forEach$1: function(receiver, action) {
+      var t1, key;
+      H.instanceType(receiver)._eval$1("~(MapMixin.K,MapMixin.V)")._as(action);
+      for (t1 = J.get$iterator$a(this.get$keys(receiver)); t1.moveNext$0();) {
+        key = t1.get$current();
+        action.call$2(key, this.$index(receiver, key));
+      }
+    },
+    get$length: function(receiver) {
+      return J.get$length$asx(this.get$keys(receiver));
+    },
+    toString$0: function(receiver) {
+      return P.MapBase_mapToString(receiver);
+    }
+  };
   P.Error.prototype = {};
   P.AssertionError.prototype = {
     toString$0: function(_) {
@@ -2778,18 +2810,7 @@
       return "RangeError";
     },
     get$_errorExplanation: function() {
-      var explanation,
-        start = this.start,
-        end = this.end;
-      if (start == null)
-        explanation = end != null ? ": Not less than or equal to " + H.S(end) : "";
-      else if (end == null)
-        explanation = ": Not greater than or equal to " + H.S(start);
-      else if (end > start)
-        explanation = ": Not in inclusive range " + H.S(start) + ".." + H.S(end);
-      else
-        explanation = end < start ? ": Valid value range is empty" : ": Only valid value is " + H.S(start);
-      return explanation;
+      return "";
     }
   };
   P.IndexError.prototype = {
@@ -2806,7 +2827,7 @@
       t1 = this.length;
       if (t1 === 0)
         return ": no indices are valid";
-      return ": index should be less than " + t1;
+      return ": index should be less than " + H.S(t1);
     },
     get$length: function(receiver) {
       return this.length;
@@ -2879,6 +2900,37 @@
       return value == null ? this.super$Interceptor$toString(receiver) : value;
     }
   };
+  W.Storage.prototype = {
+    $index: function(receiver, key) {
+      return receiver.getItem(H._asStringS(key));
+    },
+    forEach$1: function(receiver, f) {
+      var i, key, t1;
+      type$.void_Function_String_String._as(f);
+      for (i = 0; true; ++i) {
+        key = receiver.key(i);
+        if (key == null)
+          return;
+        t1 = receiver.getItem(key);
+        t1.toString;
+        f.call$2(key, t1);
+      }
+    },
+    get$keys: function(receiver) {
+      var keys = H.setRuntimeTypeInfo([], type$.JSArray_String);
+      this.forEach$1(receiver, new W.Storage_keys_closure(keys));
+      return keys;
+    },
+    get$length: function(receiver) {
+      return receiver.length;
+    }
+  };
+  W.Storage_keys_closure.prototype = {
+    call$2: function(k, v) {
+      return C.JSArray_methods.add$1(this.keys, k);
+    },
+    $signature: 4
+  };
   W.Window.prototype = {
     get$location: function(receiver) {
       return receiver.location;
@@ -2896,18 +2948,7 @@
       this._location.href = val;
     }
   };
-  Z.main_closure.prototype = {
-    call$1: function(row) {
-      return J.startsWith$1$s(H._asStringS(row), "token=");
-    },
-    $signature: 3
-  };
-  Z.main_closure0.prototype = {
-    call$0: function() {
-      return null;
-    },
-    $signature: 4
-  };
+  W._Storage_Interceptor_MapMixin.prototype = {};
   (function aliases() {
     var _ = J.Interceptor.prototype;
     _.super$Interceptor$toString = _.toString$0;
@@ -2915,21 +2956,23 @@
     _.super$JavaScriptObject$toString = _.toString$0;
   })();
   (function inheritance() {
-    var _inherit = hunkHelpers.inherit,
+    var _mixin = hunkHelpers.mixin,
+      _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(P.Object, null);
-    _inheritMany(P.Object, [H.JS_CONST, J.Interceptor, J.ArrayIterator, P.Error, H.Closure, H.Rti, H._FunctionParameters, P.Null, P.StringBuffer, W._DOMWindowCrossFrame, W._LocationCrossFrame]);
-    _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JSArray, J.JSNumber, J.JSString, W.DomException, W.EventTarget, W.Location]);
+    _inheritMany(P.Object, [H.JS_CONST, J.Interceptor, J.ArrayIterator, P.Error, H.Closure, H.Rti, H._FunctionParameters, P.MapMixin, P.Null, P.StringBuffer, W._DOMWindowCrossFrame, W._LocationCrossFrame]);
+    _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JSArray, J.JSNumber, J.JSString, W.DomException, W.EventTarget, W.Location, W._Storage_Interceptor_MapMixin]);
     _inheritMany(J.JavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction]);
     _inherit(J.JSUnmodifiableArray, J.JSArray);
     _inheritMany(J.JSNumber, [J.JSInt, J.JSDouble]);
-    _inheritMany(P.Error, [H.LateError, H.RuntimeError, P.AssertionError, H._Error, P.NullThrownError, P.ArgumentError, P.UnsupportedError, P.UnimplementedError, P.ConcurrentModificationError, P.CyclicInitializationError]);
-    _inheritMany(H.Closure, [H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, Z.main_closure, Z.main_closure0]);
+    _inheritMany(P.Error, [H.LateError, H.RuntimeError, H._Error, P.AssertionError, P.NullThrownError, P.ArgumentError, P.UnsupportedError, P.UnimplementedError, P.ConcurrentModificationError, P.CyclicInitializationError]);
+    _inheritMany(H.Closure, [H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P.MapBase_mapToString_closure, W.Storage_keys_closure]);
     _inheritMany(H.TearOffClosure, [H.StaticClosure, H.BoundClosure]);
-    _inherit(H._AssertionError, P.AssertionError);
     _inherit(H._TypeError, H._Error);
     _inheritMany(P.ArgumentError, [P.RangeError, P.IndexError]);
     _inheritMany(W.EventTarget, [W.Node, W.Window]);
+    _inherit(W.Storage, W._Storage_Interceptor_MapMixin);
+    _mixin(W._Storage_Interceptor_MapMixin, P.MapMixin);
   })();
   var init = {
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
@@ -2937,12 +2980,12 @@
     mangledNames: {},
     getTypeFromName: getGlobalFromName,
     metadata: [],
-    types: ["@(@)", "@(@,String)", "@(String)", "bool*(String*)", "Null()"],
+    types: ["@(@)", "@(@,String)", "@(String)", "~(Object?,Object?)", "~(String,String)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: typeof Symbol == "function" && typeof Symbol() == "symbol" ? Symbol("$ti") : "$ti"
   };
-  H._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"JavaScriptObject","UnknownJavaScriptObject":"JavaScriptObject","JavaScriptFunction":"JavaScriptObject","JSBool":{"bool":[]},"JSArray":{"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"Iterable":["1"]},"JSNumber":{"num":[]},"JSInt":{"int":[],"num":[]},"JSDouble":{"num":[]},"JSString":{"String":[],"Pattern":[]},"String":{"Pattern":[]},"Window":{"WindowBase":[]},"_DOMWindowCrossFrame":{"WindowBase":[]}}'));
+  H._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"JavaScriptObject","UnknownJavaScriptObject":"JavaScriptObject","JavaScriptFunction":"JavaScriptObject","JSBool":{"bool":[]},"JSArray":{"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"Iterable":["1"]},"JSInt":{"int":[]},"JSString":{"String":[]},"Storage":{"MapMixin":["String","String"],"MapMixin.K":"String","MapMixin.V":"String"},"Window":{"WindowBase":[]},"_DOMWindowCrossFrame":{"WindowBase":[]}}'));
   0;
   var type$ = (function rtii() {
     var findType = H.findType;
@@ -2964,7 +3007,8 @@
       legacy_Object: findType("Object*"),
       nullable_Future_Null: findType("Future<Null>?"),
       nullable_Object: findType("Object?"),
-      num: findType("num")
+      num: findType("num"),
+      void_Function_String_String: findType("~(String,String)")
     };
   })();
   (function constants() {
@@ -3137,8 +3181,8 @@
       }
       init.dispatchPropertyName = init.getIsolateTag("dispatch_record");
     }();
-    hunkHelpers.setOrUpdateInterceptorsByTag({ApplicationCacheErrorEvent: J.Interceptor, DOMError: J.Interceptor, ErrorEvent: J.Interceptor, Event: J.Interceptor, InputEvent: J.Interceptor, SubmitEvent: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, SensorErrorEvent: J.Interceptor, SpeechRecognitionError: J.Interceptor, SQLError: J.Interceptor, DOMException: W.DomException, EventTarget: W.EventTarget, Location: W.Location, Document: W.Node, HTMLDocument: W.Node, Node: W.Node, Window: W.Window, DOMWindow: W.Window});
-    hunkHelpers.setOrUpdateLeafTags({ApplicationCacheErrorEvent: true, DOMError: true, ErrorEvent: true, Event: true, InputEvent: true, SubmitEvent: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, SensorErrorEvent: true, SpeechRecognitionError: true, SQLError: true, DOMException: true, EventTarget: false, Location: true, Document: true, HTMLDocument: true, Node: true, Window: true, DOMWindow: true});
+    hunkHelpers.setOrUpdateInterceptorsByTag({ApplicationCacheErrorEvent: J.Interceptor, DOMError: J.Interceptor, ErrorEvent: J.Interceptor, Event: J.Interceptor, InputEvent: J.Interceptor, SubmitEvent: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, SensorErrorEvent: J.Interceptor, SpeechRecognitionError: J.Interceptor, SQLError: J.Interceptor, DOMException: W.DomException, EventTarget: W.EventTarget, Location: W.Location, Document: W.Node, HTMLDocument: W.Node, Node: W.Node, Storage: W.Storage, Window: W.Window, DOMWindow: W.Window});
+    hunkHelpers.setOrUpdateLeafTags({ApplicationCacheErrorEvent: true, DOMError: true, ErrorEvent: true, Event: true, InputEvent: true, SubmitEvent: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, SensorErrorEvent: true, SpeechRecognitionError: true, SQLError: true, DOMException: true, EventTarget: false, Location: true, Document: true, HTMLDocument: true, Node: true, Storage: true, Window: true, DOMWindow: true});
   })();
   convertAllToFastObject(holders);
   convertToFastObject($);
