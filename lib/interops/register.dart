@@ -22,18 +22,15 @@ void submitHandler(MouseEvent event) async {
     }),
   );
   var token = json.decode(response.body)['token'];
-  window.console.log(token);
   event.preventDefault();
   final validate = 'http://localhost:4040/validate/';
   var res = await http.get(validate,
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
   event.preventDefault();
   if (res.statusCode == 200) {
-    window.console.log('yes');
-    document.cookie = 'token=$token';
+    document.cookie = 'token=$token; path=/';
     document.window.location.href = 'http://localhost:4040/dashboard/';
   } else {
-    window.console.log('no');
     document.window.location.href = '/';
   }
 }

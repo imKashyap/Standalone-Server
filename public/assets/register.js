@@ -7061,8 +7061,6 @@
               // returning from await.
               response = $async$result;
               token = J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(response.headers).parameters._map.$index(0, "charset")).decode$1(0, response.bodyBytes)), "token");
-              if (typeof console != "undefined")
-                window.console.log(token);
               $event.preventDefault();
               $async$goto = 3;
               return P._asyncAwait(G.get("http://localhost:4040/validate/", P.LinkedHashMap_LinkedHashMap$_literal(["authorization", "Bearer " + H.S(token)], t2, t2)), $async$submitHandler);
@@ -7071,15 +7069,10 @@
               res = $async$result;
               $event.preventDefault();
               if (res.statusCode === 200) {
-                if (typeof console != "undefined")
-                  window.console.log("yes");
-                C.HtmlDocument_methods.set$cookie(t1, "token=" + H.S(token));
+                C.HtmlDocument_methods.set$cookie(t1, "token=" + H.S(token) + "; path=/");
                 J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(t1.defaultView)), "http://localhost:4040/dashboard/");
-              } else {
-                if (typeof console != "undefined")
-                  window.console.log("no");
+              } else
                 J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(t1.defaultView)), "/");
-              }
               // implicit return
               return P._asyncReturn(null, $async$completer);
           }

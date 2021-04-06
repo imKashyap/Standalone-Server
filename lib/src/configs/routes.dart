@@ -5,6 +5,7 @@ import 'package:standalone_server/server.dart';
 import 'package:standalone_server/src/apis/auth_api.dart';
 import 'package:standalone_server/src/apis/dash_api.dart';
 import 'package:standalone_server/src/apis/static_assets_api.dart';
+import 'package:standalone_server/src/apis/user_api.dart';
 import 'package:standalone_server/src/apis/validate_token.dart';
 import 'package:standalone_server/src/configs/dot_env.dart';
 
@@ -20,7 +21,9 @@ Router routes() {
 
   app.mount('/dashboard/', DashApi().router);
 
-  app.get('/', fallback('./public/landing.html'));
+  app.mount('/user/', UserApi().router);
+
+  app.all('/<name|.*>', fallback('./public/landing.html'));
 
   return app;
 }

@@ -52,7 +52,7 @@ dynamic verifyJWT(String token, String secret) {
   } on JWTExpiredError {
     print('jwt expired');
   } on JWTError catch (ex) {
-    print(ex.message); // ex: invalid signature
+    print(ex.message.toString() + ' error'); // ex: invalid signature
   }
 }
 
@@ -66,10 +66,9 @@ Middleware handleAuth(String secret) {
         token = authHeader.substring(7);
         jwt = verifyJWT(token, secret);
       }
-      final updatedRequest = request.change(
-          context: {
+      final updatedRequest = request.change(context: {
         'authDetails': jwt,
-      } );
+      });
       return await innerHandler(updatedRequest);
     };
   };
@@ -86,7 +85,8 @@ Middleware checkAuthorization() {
         //       ]
         //     }),
         //     headers: {'content-type': 'application/json'});
-        return Response.seeOther('/');
+        return Response.forbidden(json.encode({'msg': 'invalid'}),
+            headers: {'content-type': 'application/json'});
       }
       return null;
     },

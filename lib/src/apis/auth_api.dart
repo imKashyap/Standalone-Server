@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:standalone_server/server.dart';
 import 'package:standalone_server/src/apis/validators/input_validator.dart';
@@ -38,14 +38,15 @@ class AuthApi with InputValidator {
       }
       return Response.ok('Successfully logged out');
     });
-
     return router;
   }
 
   Future<Response> handleRegister(Request request) async {
     final payload = await request.readAsString();
     final userInfo = json.decode(payload);
+    var uuid = await http.get('https://www.uuidgenerator.net/api/version4');
     var user = User(
+        uuid: uuid.body,
         name: userInfo['name'],
         email: userInfo['email'],
         password: userInfo['password']);
@@ -78,13 +79,14 @@ class AuthApi with InputValidator {
       var salt = generateSalt();
       var hashedPassword = hashPassword(user.password, salt);
       writeToFile({
+        'uuid': user.uuid,
         'email': user.email,
         'name': user.name,
         'password': hashedPassword,
         'salt': salt,
         'createdAt': user.created
       });
-      final userId = user.email;
+      final userId = user.uuid;
       final token = generateJWT(userId, 'http://localhost', secret);
       return Response.ok(json.encode({'token': token}), headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
@@ -143,7 +145,7 @@ class AuthApi with InputValidator {
             }),
             headers: {'content-type': 'application/json'});
       }
-      final userId = persistedUser['email'];
+      final userId = persistedUser['uuid'];
       final token = generateJWT(userId, 'http://localhost', secret);
 
       return Response.ok(json.encode({'token': token}), headers: {

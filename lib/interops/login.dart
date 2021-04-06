@@ -20,14 +20,13 @@ void submitHandler(MouseEvent event) async {
     }),
   );
   var token = json.decode(response.body)['token'];
-  window.console.log(token);
   event.preventDefault();
   final validate = 'http://localhost:4040/validate/';
   var res = await http.get(validate,
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
   event.preventDefault();
   if (res.statusCode == 200) {
-    window.localStorage['token'] = token;
+    document.cookie = 'token=$token; path=/';
     document.window.location.href = 'http://localhost:4040/dashboard/';
   } else {
     document.window.location.href = '/';
