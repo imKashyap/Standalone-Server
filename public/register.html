@@ -14,6 +14,11 @@
   </head>
   <body>
     <header class="header">
+      <div class="logo-box">
+        <a href="/">
+          <img src="/assets/logo.png" />
+        </a>
+      </div>
       <div class="text-box-login">
         <h1 class="heading-primary">
           <span class="heading-primary-main">Standalone Server</span>
@@ -21,7 +26,7 @@
         </h1>
       </div>
       <div class="alert">
-        <div class="alert-title">hello,i am alert gand marao madarchod</div>
+        <div class="alert-title"></div>
 
         <div
           class="closebtno"
@@ -42,10 +47,22 @@
             <strong>Name</strong>
           </div>
           <div>
-            <input class="email" size="30" name="name" id="name-input" required/>
+            <input
+              class="email"
+              size="30"
+              name="name"
+              id="name-input"
+              required
+            />
           </div>
           <div style="margin-top: 40px">
-            <input class="email" size="30" name="email" id="email-input"required />
+            <input
+              class="email"
+              size="30"
+              name="email"
+              id="email-input"
+              required
+            />
           </div>
           <div style="margin-top: 40px">
             <input
@@ -62,6 +79,9 @@
             <input type="submit" class="btn-register" value="Register" />
           </div>
         </form>
+        <div class="login-tag">
+          Already have an account? <a href="/auth/login"> &nbsp Login</a>
+        </div>
       </div>
     </header>
     <script src="/assets/register.js"></script>

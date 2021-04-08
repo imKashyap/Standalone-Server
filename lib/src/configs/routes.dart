@@ -7,10 +7,9 @@ import 'package:standalone_server/src/apis/dash_api.dart';
 import 'package:standalone_server/src/apis/static_assets_api.dart';
 import 'package:standalone_server/src/apis/user_api.dart';
 import 'package:standalone_server/src/apis/validate_token.dart';
-import 'package:standalone_server/src/configs/dot_env.dart';
 
 Router routes() {
-  var mySecret = Env.secretKey;
+  var mySecret = 'myJWTSecret';
   var app = Router();
 
   app.mount('/assets/', StaticAssetsApi('public').router);
