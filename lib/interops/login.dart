@@ -19,16 +19,28 @@ void submitHandler(MouseEvent event) async {
       'password': pass,
     }),
   );
-  var token = json.decode(response.body)['token'];
-  event.preventDefault();
-  final validate = 'http://localhost:4040/validate/';
-  var res = await http.get(validate,
-      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
-  event.preventDefault();
-  if (res.statusCode == 200) {
-    document.cookie = 'token=$token; path=/';
-    document.window.location.href = 'http://localhost:4040/dashboard/';
+  if (response.statusCode == 200) {
+    var token = json.decode(response.body)['token'];
+    event.preventDefault();
+    final validate = 'http://localhost:4040/validate/';
+    var res = await http.get(validate,
+        headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+    event.preventDefault();
+    if (res.statusCode == 200) {
+      document.cookie = 'token=$token; path=/';
+      document.window.location.href = 'http://localhost:4040/dashboard/';
+    } else {
+      document.window.location.href = '/';
+    }
   } else {
-    document.window.location.href = '/';
+    var errors = json.decode(response.body)['errors'];
+    var errMsg;
+    if (errors.length > 1) {
+      errMsg = 'User credentials are missing.';
+    } else {
+      errMsg = errors[0]['msg'];
+    }
+    document.querySelector('.alert-title').innerText = errMsg;
+    document.querySelector('.alert').style.display = 'flex';
   }
 }

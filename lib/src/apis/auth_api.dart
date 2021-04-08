@@ -71,7 +71,7 @@ class AuthApi with InputValidator {
         return Response(400,
             body: json.encode({
               'errors': [
-                {'msg': 'User already exists'}
+                {'msg': 'User already exists.'}
               ]
             }),
             headers: {'content-type': 'application/json'});
@@ -97,8 +97,7 @@ class AuthApi with InputValidator {
       return Response(500,
           body: json.encode({
             'errors': [
-              {'msg': 'Internal Server Error'},
-              {'another': e.toString()}
+              {'msg': 'Something went wrong. Try Again.'},
             ]
           }),
           headers: {'content-type': 'application/json'});
@@ -129,7 +128,7 @@ class AuthApi with InputValidator {
         return Response.forbidden(
             json.encode({
               'errors': [
-                {'msg': 'User is not registered'}
+                {'msg': 'User is not registered.'}
               ]
             }),
             headers: {'content-type': 'application/json'});
@@ -140,7 +139,7 @@ class AuthApi with InputValidator {
         return Response.forbidden(
             json.encode({
               'errors': [
-                {'msg': 'Invalid Password'}
+                {'msg': 'The password is not correct.'}
               ]
             }),
             headers: {'content-type': 'application/json'});
@@ -157,8 +156,7 @@ class AuthApi with InputValidator {
       return Response(500,
           body: json.encode({
             'errors': [
-              {'msg': 'Internal Server Error'},
-              {'another': e.toString()}
+              {'msg': 'Something went wrong. Try Again.'},
             ]
           }),
           headers: {'content-type': 'application/json'});

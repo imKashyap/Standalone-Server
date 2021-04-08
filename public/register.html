@@ -5,37 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
       rel="stylesheet"
     />
-    <title>Outdoors</title>
+    <title>Standalone Server</title>
   </head>
   <body>
     <header class="header">
       <div class="text-box-login">
         <h1 class="heading-primary">
-          <span class="heading-primary-main">Outdoors</span>
-          <span class="heading-primary-sub">is where life happens</span>
+          <span class="heading-primary-main">Standalone Server</span>
+          <span class="heading-primary-sub">The GSOC Sample Project</span>
         </h1>
+      </div>
+      <div class="alert">
+        <div class="alert-title">hello,i am alert gand marao madarchod</div>
+
+        <div
+          class="closebtno"
+          onclick="this.parentElement.style.display='none';"
+        >
+          &times;
+        </div>
       </div>
       <div class="login-form">
         <form>
           <div class="email-label-register">
-            <strong>Email:</strong>
+            <strong>Email</strong>
           </div>
           <div class="password-label-register">
-            <strong>Password:</strong>
+            <strong>Password</strong>
           </div>
           <div class="name-label-register">
-            <strong>Name:</strong>
+            <strong>Name</strong>
           </div>
           <div>
-            <input class="email" size="30" name="name" id="name-input" />
+            <input class="email" size="30" name="name" id="name-input" required/>
           </div>
           <div style="margin-top: 40px">
-            <input class="email" size="30" name="email" id="email-input" />
+            <input class="email" size="30" name="email" id="email-input"required />
           </div>
           <div style="margin-top: 40px">
             <input
@@ -45,6 +55,7 @@
               min="6"
               name="password"
               id="pass-input"
+              required
             />
           </div>
           <div class="btn-box-register">

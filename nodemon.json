@@ -7,7 +7,7 @@
 
   ],
   "ext": "dart",
-  "exec": "dart bin/server.dart && dart2js -o public/assets/login.js lib/interops/login.dart",
+  "exec": "dart2js -o public/assets/login.js lib/interops/login.dart && dart2js -o public/assets/register.js lib/interops/register.dart && dart2js -o public/assets/dashboard.js lib/interops/dashboard.dart && dart bin/server.dart",
   "execMap": {
     "dart": "dart"
   }

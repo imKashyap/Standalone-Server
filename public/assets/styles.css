@@ -72,7 +72,7 @@ body {
   display: block;
   font-size: 60px;
   font-weight: 400;
-  letter-spacing: 35px;
+  letter-spacing: 15px;
 }
 
 .button-box {
@@ -107,7 +107,8 @@ body {
   display: block;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: 17.4px;
+  text-align: center;
+  letter-spacing: 10px;
 }
 
 .email {
@@ -214,7 +215,7 @@ strong {
   text-align: center;
   font-size: 30px;
   font-weight: 400;
-  letter-spacing: 5px;
+  /* letter-spacing: 5px; */
 }
 
 .foot {
@@ -237,4 +238,109 @@ strong {
 
 .butt:hover {
   color: #fff;
+}
+
+/* popuo */
+
+.open-button {
+  background-color: #777;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 29px;
+  left: 130px;
+  border: 3px solid #777;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 350px;
+  padding: 20px 40px 10px;
+  background-color: rgba(20, 17, 34, 1);
+}
+
+/* Full-width input fields */
+.form-container input[type='text'] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: antiquewhite;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type='text']:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container h1 {
+  margin-bottom: 10px;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.btn-oo {
+  padding: 10px !important;
+  border-radius: 0% !important;
+  font-size: 20px !important;
+  margin-top: 10px !important;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+  outline: 0;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.alert {
+  /* display: none; */
+  position: fixed;
+  top: 25%;
+  left: 20%;
+  height: 50px;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  color: #fff;
+  font-weight: 500;
+  background-color: red;
+  width: 65%;
+}
+.closebtno {
+  position: fixed;
+  right: 20%;
+  top: 24%;
+  font-size: 40px;
+  cursor: pointer;
 }

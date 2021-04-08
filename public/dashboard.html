@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
       rel="stylesheet"
@@ -16,15 +16,15 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
-    <title>Document</title>
+    <title>Standalone Server</title>
   </head>
   <body>
     <div class="cont">
       <header class="header-dash">
         <div class="text-box-login">
           <h1 class="heading-primary">
-            <span class="heading-primary-main">Outdoors</span>
-            <span class="heading-primary-sub">is where life happens</span>
+            <span class="heading-primary-main">Standalone Server</span>
+            <span class="heading-primary-sub">The GSOC Sample Project</span>
           </h1>
         </div>
         <div class="welcome-box">
@@ -42,6 +42,27 @@
           </div>
           <div class="butt delete-user">
             <i class="fas fa-user-times"></i> &nbsp Delete Account
+          </div>
+          <div class="form-popup" id="myForm">
+            <form action="" class="form-container">
+              <h1>Edit your Name</h1>
+
+              <label for="name"><b>Name</b></label>
+              <input
+                type="text"
+                placeholder="Enter Name"
+                name="name"
+                class="name-input"
+                required
+              />
+              <button type="submit" class="btn btn-oo">Submit</button>
+              <button
+                type="button"
+                class="btn cancel btn-oo"
+              >
+                Close
+              </button>
+            </form>
           </div>
         </div>
       </header>

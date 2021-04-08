@@ -12,7 +12,6 @@ void main(List<String> args) async {
     document.window.location.href = '/';
   } else {
     token = tokenCookie.split('=')[1];
-    window.console.log(token);
     final url = 'http://localhost:4040/user/';
     var res = await http
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
@@ -20,7 +19,13 @@ void main(List<String> args) async {
         '<i class="fas fa-user"></i> &nbsp ${json.decode(res.body)['name']}';
     querySelector('.sign-out').onClick.listen(logouthandler);
     querySelector('.delete-user').onClick.listen(deleteUserHandler);
-    querySelector('.edit-name').onClick.listen(editNameHandler);
+    querySelector('.btn-oo').onClick.listen(editNameHandler);
+    querySelector('.edit-name').onClick.listen((MouseEvent event) async {
+      document.getElementById('myForm').style.display = 'block';
+    });
+    querySelector('.cancel').onClick.listen((MouseEvent event) async {
+      document.getElementById('myForm').style.display = 'none';
+    });
   }
 }
 
@@ -41,7 +46,7 @@ void logouthandler(MouseEvent event) async {
   }
 }
 
-Future<void> deleteUserHandler(MouseEvent event) async {
+void deleteUserHandler(MouseEvent event) async {
   event.preventDefault();
   final url = 'http://localhost:4040/user/';
   var res = await http
@@ -59,11 +64,14 @@ Future<void> deleteUserHandler(MouseEvent event) async {
 }
 
 void editNameHandler(MouseEvent event) async {
-//   event.preventDefault();
-//   final url = 'http://localhost:4040/user/';
-//   var res = await http.post(url,
-//       body: json.encode({
-//         'name': newName,
-//       }),
-//       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+  var newName = (querySelector('.name-input') as InputElement).value;
+  document.getElementById('myForm').style.display = 'none';
+  event.preventDefault();
+  final url = 'http://localhost:4040/user/';
+  await http.patch(url,
+      body: json.encode({
+        'name': newName,
+      }),
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+  document.window.location.href = 'http://localhost:4040/dashboard/';
 }
