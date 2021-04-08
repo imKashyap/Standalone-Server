@@ -1,9 +1,10 @@
 #The name of the workflow.
-name: CI
-# Trigger the workflow when a push is made
+name: Test workflow
+# Trigger the workflow when a tag is pushed
 on:
   push:
-    branches: [ master ]
+    tags:
+      - v* #v signifies different versions like v1.0.0 ,v.1.1.1
   pull_request:
     branches: [ master ]
 
