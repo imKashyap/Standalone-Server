@@ -49,7 +49,7 @@ A web server built using [Shelf](https://pub.dev/packages/shelf). Following feat
 ## Getting Started
 
 ## License
- [MIT]()
+ [MIT](https://github.com/imKashyap/Standalone-Server/blob/main/LICENSE)
 
 
 
