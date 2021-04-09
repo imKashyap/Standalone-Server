@@ -6930,7 +6930,7 @@
     main$body: function(args) {
       var $async$goto = 0,
         $async$completer = P._makeAsyncAwaitCompleter(type$.dynamic),
-        $async$returnValue, t2, t3, res, t1, tokenCookie;
+        $async$returnValue, t2, t3, res, t4, t5, t1, tokenCookie;
       var $async$main = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return P._asyncRethrow($async$result, $async$completer);
@@ -6978,24 +6978,29 @@
             case 6:
               // returning from await.
               res = $async$result;
-              J.set$innerHtml$x(t1.getElementById("user"), '<i class="fas fa-user"></i> &nbsp ' + H.S(J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(res.headers).parameters._map.$index(0, "charset")).decode$1(0, res.bodyBytes)), "name")));
-              t3 = J.get$onClick$x(t1.querySelector(".sign-out"));
-              t2 = t3.$ti;
+              t3 = t1.getElementById("user");
+              t2 = res.headers;
+              t4 = B.encodingForCharset(U._contentTypeForHeaders(t2).parameters._map.$index(0, "charset"));
+              t5 = res.bodyBytes;
+              J.set$innerHtml$x(t3, '<i class="fas fa-user"></i> &nbsp ' + H.S(J.$index$asx(C.C_JsonCodec.decode$1(0, t4.decode$1(0, t5)), "name")));
+              J.set$innerHtml$x(t1.getElementById("file-btn"), '<a href="/file/' + H.S(J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(t2).parameters._map.$index(0, "charset")).decode$1(0, t5)), "uuid")) + '/sample.pdf" target="_blank">View Sample PDF</a>');
+              t5 = J.get$onClick$x(t1.querySelector(".sign-out"));
+              t2 = t5.$ti;
               t2._eval$1("~(1)?")._as(Z.dashboard__logouthandler$closure());
               type$.nullable_void_Function._as(null);
-              W._EventStreamSubscription$(t3._html$_target, t3._eventType, Z.dashboard__logouthandler$closure(), false, t2._precomputed1);
+              W._EventStreamSubscription$(t5._html$_target, t5._eventType, Z.dashboard__logouthandler$closure(), false, t2._precomputed1);
               t2 = J.get$onClick$x(t1.querySelector(".delete-user"));
-              t3 = t2.$ti;
-              W._EventStreamSubscription$(t2._html$_target, t2._eventType, t3._eval$1("~(1)?")._as(Z.dashboard__deleteUserHandler$closure()), false, t3._precomputed1);
-              t3 = J.get$onClick$x(t1.querySelector(".btn-oo"));
-              t2 = t3.$ti;
-              W._EventStreamSubscription$(t3._html$_target, t3._eventType, t2._eval$1("~(1)?")._as(Z.dashboard__editNameHandler$closure()), false, t2._precomputed1);
+              t5 = t2.$ti;
+              W._EventStreamSubscription$(t2._html$_target, t2._eventType, t5._eval$1("~(1)?")._as(Z.dashboard__deleteUserHandler$closure()), false, t5._precomputed1);
+              t5 = J.get$onClick$x(t1.querySelector(".btn-oo"));
+              t2 = t5.$ti;
+              W._EventStreamSubscription$(t5._html$_target, t5._eventType, t2._eval$1("~(1)?")._as(Z.dashboard__editNameHandler$closure()), false, t2._precomputed1);
               t2 = J.get$onClick$x(t1.querySelector(".edit-name"));
-              t3 = t2.$ti;
-              W._EventStreamSubscription$(t2._html$_target, t2._eventType, t3._eval$1("~(1)?")._as(new Z.main_closure1()), false, t3._precomputed1);
+              t5 = t2.$ti;
+              W._EventStreamSubscription$(t2._html$_target, t2._eventType, t5._eval$1("~(1)?")._as(new Z.main_closure1()), false, t5._precomputed1);
               t1 = J.get$onClick$x(t1.querySelector(".cancel"));
-              t3 = t1.$ti;
-              W._EventStreamSubscription$(t1._html$_target, t1._eventType, t3._eval$1("~(1)?")._as(new Z.main_closure2()), false, t3._precomputed1);
+              t5 = t1.$ti;
+              W._EventStreamSubscription$(t1._html$_target, t1._eventType, t5._eval$1("~(1)?")._as(new Z.main_closure2()), false, t5._precomputed1);
             case 4:
               // join
             case 1:

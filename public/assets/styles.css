@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/*Add styles common to entire body*/
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -14,6 +15,7 @@ body {
   background-color: dimgray;
 }
 
+/*Add styles for header including the background image*/
 .header {
   position: relative;
   height: 95vh;
@@ -28,6 +30,7 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 }
 
+/*Add styles for header including the background image*/
 .header-dash {
   position: relative;
   height: 95vh;
@@ -42,6 +45,7 @@ body {
   /* clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); */
 }
 
+/* */
 .text-box {
   position: absolute;
   top: 30%;
@@ -49,6 +53,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
+/* Add style for login page form for email password input*/
 .login-form {
   position: absolute;
   top: 50%;
@@ -111,6 +116,7 @@ body {
   letter-spacing: 10px;
 }
 
+/* */
 .email {
   font-size: 20px;
   padding-left: 60px;
@@ -195,11 +201,14 @@ strong {
   cursor: pointer;
   font-size: 30px;
 }
+
 .btn-register:hover {
   background-color: rgba(20, 17, 34, 1);
   color: #fff;
   transform: scale(1.01);
 }
+
+/*Style for welcome box on Dashboard page*/
 .welcome-box {
   position: absolute;
   /* background-color: #fff; */
@@ -220,6 +229,7 @@ strong {
   /* letter-spacing: 5px; */
 }
 
+/*Style for footer on Dashboard page*/
 .foot {
   position: absolute;
   display: flex;
@@ -242,10 +252,9 @@ strong {
   color: #fff;
 }
 
-/* popuo */
-
+/*Style for open button on dashboard page for editing name of user*/
 .open-button {
-  background-color:dimgray;
+  background-color: dimgray;
   color: white;
   padding: 16px 20px;
   border: none;
@@ -304,6 +313,7 @@ strong {
   margin-bottom: 10px;
   opacity: 0.8;
 }
+
 .btn-oo {
   padding: 10px !important;
   border-radius: 0% !important;
@@ -323,8 +333,8 @@ strong {
   opacity: 1;
 }
 
+/*Style for alert if request returns 400 series error*/
 .alert {
-  /* display: none; */
   position: fixed;
   top: 25%;
   left: 20%;
@@ -339,6 +349,8 @@ strong {
   background-color: red;
   width: 65%;
 }
+
+/*Style for close button on dashboard page for editing name of user*/
 .closebtno {
   position: fixed;
   right: 20%;
@@ -346,15 +358,21 @@ strong {
   font-size: 40px;
   cursor: pointer;
 }
+
+/*Style for logo division on the top*/
 .logo-box {
   position: fixed;
   top: 6%;
   left: 7%;
 }
+
+/*Style for logo image on the top*/
 .logo-box img {
   max-width: 70px;
   max-height: 70px;
 }
+
+/*Style for Already have an account? Login entire division on register page */
 .login-tag {
   position: fixed;
   bottom: -66%;
@@ -364,16 +382,20 @@ strong {
   font-weight: 600;
 }
 
+/*Style for Already have an account? Login button on register page */
 .login-tag a {
   text-decoration: none;
   color: #fff;
   font-weight: 600;
 }
+
+/*hover effect for Already have an account? Login button on register page */
 .login-tag a:hover {
   font-weight: 700;
   opacity: 0.8;
 }
 
+/*Style for Don't have an account? Register entire division on login page */
 .register-tag {
   position: fixed;
   bottom: -85%;
@@ -383,12 +405,47 @@ strong {
   font-weight: 600;
 }
 
+/*Style for Don't have an account? Register button on login page */
 .register-tag a {
   text-decoration: none;
   color: #fff;
   font-weight: 600;
 }
+
+/*hover effect for Don't have an account? Register button on login page */
 .register-tag a:hover {
   font-weight: 700;
   opacity: 0.8;
+}
+
+/*Style for button to view sample PDF on Dashboard Page*/
+.btn-dash {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 60%;
+  right: 45%;
+  font-size: 18px !important;
+  width: 200px;
+  height: 60px;
+  margin-top: 40px;
+  background: none;
+  box-shadow: none;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 30px;
+}
+/*Hover effect for button to view sample PDF on Dashboard Page*/
+.btn-dash:hover {
+  background-color: rgba(20, 17, 34, 1);
+  color: #fff;
+  transform: scale(1.01);
+}
+/*Style for button text to view sample PDF on Dashboard Page*/
+.btn-dash a {
+  text-decoration: none;
+  color: #fff;
 }

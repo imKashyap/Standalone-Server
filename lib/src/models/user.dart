@@ -1,3 +1,5 @@
+//This is a user model for authentication of user
+
 class User {
   final String uuid;
   final String name;

@@ -10,7 +10,7 @@ class StaticAssetsApi {
 
   Router get router {
     final router = Router();
-
+// serves static files to client side
     router.get('/<file|.*>', (Request req) async {
       final assetPath = p.join(folderPath, req.requestedUri.path.substring(1));
       return await createFileHandler(assetPath)(req);

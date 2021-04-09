@@ -1,4 +1,4 @@
-// This file refers to the main server
+// This file is the main server file
 // Server is automatically reloaded using nodemon when the source code changes
 
 import 'package:standalone_server/server.dart';

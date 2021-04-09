@@ -11,8 +11,11 @@ class UserApi {
   List usersList;
   Handler get router {
     final router = Router();
+    //fetch user info in JSON
     router.get('/', fetchUserInfo);
+    // update the name of user
     router.patch('/', handleUpdate);
+    //delete user's account
     router.delete('/', handleDelete);
 
     final handler =
@@ -21,6 +24,7 @@ class UserApi {
     return handler;
   }
 
+  //connect to local JSON database under database/users.json
   void init() {
     var dir = Directory('database');
     jsonFile = File(dir.path + '/users.json');
@@ -28,6 +32,7 @@ class UserApi {
     usersList = jsonFileContent['users'];
   }
 
+  // returns a response with User Info in body
   Future<Response> fetchUserInfo(Request request) async {
     init();
     final authDetails = request.context['authDetails'] as JWT;
@@ -41,6 +46,7 @@ class UserApi {
     return Response.notFound('User not found');
   }
 
+  // Updates the name of user(Edits username if requested)
   Future<Response> handleUpdate(Request request) async {
     init();
     final payload = await request.readAsString();
@@ -66,6 +72,7 @@ class UserApi {
     return Response.notFound('User not found');
   }
 
+  // Deletes user account
   Future<Response> handleDelete(Request request) async {
     init();
     final authDetails = request.context['authDetails'] as JWT;

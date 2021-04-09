@@ -2,6 +2,7 @@ abstract class StringValidator {
   bool isValid(String value);
 }
 
+// is valid email address
 class ValidEmail implements StringValidator {
   @override
   bool isValid(String value) {
@@ -13,6 +14,7 @@ class ValidEmail implements StringValidator {
   }
 }
 
+// is valid name
 class NonEmptyString implements StringValidator {
   @override
   bool isValid(String value) {
@@ -21,6 +23,7 @@ class NonEmptyString implements StringValidator {
   }
 }
 
+// is valid password
 class ValidPassword implements StringValidator {
   @override
   bool isValid(String value) {
@@ -29,33 +32,12 @@ class ValidPassword implements StringValidator {
   }
 }
 
-class ValidPhoneNo implements StringValidator {
-  @override
-  bool isValid(String value) {
-    if (value == null) return false;
-    var patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    var regExp = RegExp(patttern);
-    return (value.isEmpty || !regExp.hasMatch(value));
-  }
-}
-
-class ValidOtp implements StringValidator {
-  @override
-  bool isValid(String value) {
-    if (value == null) return false;
-    return value.length == 6 && int.tryParse(value) != null;
-  }
-}
-
+// error messages for invalid inputs
 class InputValidator {
   final StringValidator nonEmptyTextValidator = NonEmptyString();
   final StringValidator emailValidator = ValidEmail();
   final StringValidator passValidator = ValidPassword();
-  final StringValidator phoneValidator = ValidPhoneNo();
-  final StringValidator otpValidator = ValidOtp();
   final String emptyname = 'Enter a valid name.';
   final String emailError = 'Enter a valid email.';
   final String passError = 'Enter atleast 6 characters password.';
-  final String phoneError = 'Enter a valid phone number.';
-  final String otpError = 'Enter a valid 6 digit otp.';
 }

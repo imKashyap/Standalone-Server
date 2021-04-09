@@ -14,18 +14,25 @@ class AuthApi with InputValidator {
   bool fileExists = false;
   Router get router {
     final router = Router();
+    // Show login page on client side
     router.get('/login', (Request request) async {
       final loginFile = File('./public/login.html').readAsStringSync();
       return Response.ok(loginFile, headers: {'content-type': 'text/html'});
     });
+
+    // POST request to login user
     router.post('/login', handleLogin);
+
+     // Show register page on client side
     router.get('/register', (Request request) async {
       final registerFile = File('./public/register.html').readAsStringSync();
       return Response.ok(registerFile, headers: {'content-type': 'text/html'});
     });
 
+// POST request to register user
     router.post('/register', handleRegister);
 
+// POST request to signout user
     router.post('/logout', (Request req) async {
       if (req.context['authDetails'] == null) {
         Response.forbidden(
@@ -51,6 +58,8 @@ class AuthApi with InputValidator {
         email: userInfo['email'],
         password: userInfo['password']);
     var errors = [];
+
+    // Enusure all inputs are in valid format
     var isBadRequest = checkValidation(
         name: user.name,
         email: user.email,
@@ -63,6 +72,7 @@ class AuthApi with InputValidator {
           body: json.encode({'errors': errors}),
           headers: {'content-type': 'application/json'});
     }
+    // Ensure user has already not registered
     try {
       var dir = Directory('database');
       jsonFile = File(dir.path + '/users.json');
@@ -76,6 +86,7 @@ class AuthApi with InputValidator {
             }),
             headers: {'content-type': 'application/json'});
       }
+      //create hashed password
       var salt = generateSalt();
       var hashedPassword = hashPassword(user.password, salt);
       writeToFile({
@@ -87,6 +98,7 @@ class AuthApi with InputValidator {
         'createdAt': user.created
       });
       final userId = user.uuid;
+      // Generate JWT Token
       final token = generateJWT(userId, 'http://localhost', secret);
       return Response.ok(json.encode({'token': token}), headers: {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
@@ -109,6 +121,7 @@ class AuthApi with InputValidator {
     final userInfo = json.decode(payload);
     var user = User(email: userInfo['email'], password: userInfo['password']);
     var errors = [];
+  // Enusure all inputs are in valid format
     var isBadRequest = checkValidation(
         email: user.email,
         pass: user.password,
@@ -120,6 +133,7 @@ class AuthApi with InputValidator {
           headers: {'content-type': 'application/json'});
     }
     try {
+      // Ensure user is already registered
       var dir = Directory('database');
       jsonFile = File(dir.path + '/users.json');
       fileExists = jsonFile.existsSync();
@@ -133,6 +147,7 @@ class AuthApi with InputValidator {
             }),
             headers: {'content-type': 'application/json'});
       }
+      //Verifying password
       var isCorrect = persistedUser['password'] ==
           hashPassword(user.password, persistedUser['salt']);
       if (!isCorrect) {
@@ -163,6 +178,7 @@ class AuthApi with InputValidator {
     }
   }
 
+  // create users,json file
   void createFile() {
     var dir = Directory('database');
     var file = File(dir.path + '/users.json');
@@ -172,6 +188,7 @@ class AuthApi with InputValidator {
     jsonFile = file;
   }
 
+  //add new registered user to database
   void writeToFile(Map<String, String> content) {
     if (!fileExists) {
       createFile();
@@ -183,6 +200,7 @@ class AuthApi with InputValidator {
     jsonFile.writeAsStringSync(json.encode(jsonFileContent));
   }
 
+  // check if the inputs are valid or not
   bool checkValidation(
       {String name, String email, String pass, var errors, String authState}) {
     var isBadRequest = false;
@@ -212,10 +230,4 @@ class AuthApi with InputValidator {
     return isBadRequest;
   }
 
-  dynamic findOne(File file, String email) {
-    var jsonFileContent = json.decode(file.readAsStringSync());
-    var usersList = jsonFileContent['users'];
-    return usersList.firstWhere((user) => user['email'] == email,
-        orElse: () => null);
-  }
 }

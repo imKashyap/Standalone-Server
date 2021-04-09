@@ -7,6 +7,8 @@ void main(List<String> args) {
   querySelector('.btn-register').onClick.listen(submitHandler);
 }
 
+// handle register user request on frontend
+// returns a JWT token on successful registeration
 void submitHandler(MouseEvent event) async {
   var name = (querySelector('#name-input') as InputElement).value;
   var email = (querySelector('#email-input') as InputElement).value;

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 String token;
 void main(List<String> args) async {
+  //validate token using cookie
   var tokenCookie = document.cookie
       .split('; ')
       .firstWhere((row) => row.startsWith('token='), orElse: () => null);
@@ -17,6 +18,8 @@ void main(List<String> args) async {
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
     document.getElementById('user').innerHtml =
         '<i class="fas fa-user"></i> &nbsp ${json.decode(res.body)['name']}';
+    document.getElementById('file-btn').innerHtml =
+        '<a href="/file/${json.decode(res.body)['uuid']}/sample.pdf" target="_blank">View Sample PDF</a>';
     querySelector('.sign-out').onClick.listen(logouthandler);
     querySelector('.delete-user').onClick.listen(deleteUserHandler);
     querySelector('.btn-oo').onClick.listen(editNameHandler);
@@ -29,6 +32,7 @@ void main(List<String> args) async {
   }
 }
 
+//handle logout request
 void logouthandler(MouseEvent event) async {
   event.preventDefault();
   final logout = 'http://localhost:4040/auth/logout';
@@ -46,6 +50,7 @@ void logouthandler(MouseEvent event) async {
   }
 }
 
+//handle delete account request
 void deleteUserHandler(MouseEvent event) async {
   event.preventDefault();
   final url = 'http://localhost:4040/user/';
@@ -63,6 +68,7 @@ void deleteUserHandler(MouseEvent event) async {
   }
 }
 
+//handle edit name request
 void editNameHandler(MouseEvent event) async {
   var newName = (querySelector('.name-input') as InputElement).value;
   document.getElementById('myForm').style.display = 'none';

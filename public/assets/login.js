@@ -1738,8 +1738,8 @@
     JsLinkedHashMap: function JsLinkedHashMap(t0) {
       var _ = this;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _.__js_helper$_modifications = 0;
+      _._last = _._first = _.__js_helper$_rest = _._nums = _._strings = null;
+      _._modifications = 0;
       _.$ti = t0;
     },
     JsLinkedHashMap_values_closure: function JsLinkedHashMap_values_closure(t0) {
@@ -1751,7 +1751,7 @@
     LinkedHashMapCell: function LinkedHashMapCell(t0, t1) {
       this.hashMapCellKey = t0;
       this.hashMapCellValue = t1;
-      this.__js_helper$_next = null;
+      this._next = null;
     },
     LinkedHashMapKeyIterable: function LinkedHashMapKeyIterable(t0, t1) {
       this.__js_helper$_map = t0;
@@ -1760,8 +1760,8 @@
     LinkedHashMapKeyIterator: function LinkedHashMapKeyIterator(t0, t1, t2) {
       var _ = this;
       _.__js_helper$_map = t0;
-      _.__js_helper$_modifications = t1;
-      _.__js_helper$_current = _.__js_helper$_cell = null;
+      _._modifications = t1;
+      _.__js_helper$_current = _._cell = null;
       _.$ti = t2;
     },
     initHooks_closure: function initHooks_closure(t0) {
@@ -4226,7 +4226,7 @@
     },
     _LinkedHashSetIterator$: function(_set, _modifications, $E) {
       var t1 = new P._LinkedHashSetIterator(_set, _modifications, $E._eval$1("_LinkedHashSetIterator<0>"));
-      t1._cell = _set._first;
+      t1._collection$_cell = _set._collection$_first;
       return t1;
     },
     _defaultEquals: function(a, b) {
@@ -4391,8 +4391,8 @@
     _LinkedIdentityHashMap: function _LinkedIdentityHashMap(t0) {
       var _ = this;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _.__js_helper$_modifications = 0;
+      _._last = _._first = _.__js_helper$_rest = _._nums = _._strings = null;
+      _._modifications = 0;
       _.$ti = t0;
     },
     _LinkedCustomHashMap: function _LinkedCustomHashMap(t0, t1, t2, t3) {
@@ -4401,8 +4401,8 @@
       _._hashCode = t1;
       _._validKey = t2;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _.__js_helper$_modifications = 0;
+      _._last = _._first = _.__js_helper$_rest = _._nums = _._strings = null;
+      _._modifications = 0;
       _.$ti = t3;
     },
     _LinkedCustomHashMap_closure: function _LinkedCustomHashMap_closure(t0) {
@@ -4411,19 +4411,19 @@
     _LinkedHashSet: function _LinkedHashSet(t0) {
       var _ = this;
       _._collection$_length = 0;
-      _._last = _._first = _._collection$_rest = _._nums = _._strings = null;
-      _._modifications = 0;
+      _._collection$_last = _._collection$_first = _._collection$_rest = _._collection$_nums = _._collection$_strings = null;
+      _._collection$_modifications = 0;
       _.$ti = t0;
     },
     _LinkedHashSetCell: function _LinkedHashSetCell(t0) {
       this._element = t0;
-      this._previous = this._next = null;
+      this._previous = this._collection$_next = null;
     },
     _LinkedHashSetIterator: function _LinkedHashSetIterator(t0, t1, t2) {
       var _ = this;
       _._set = t0;
-      _._modifications = t1;
-      _._collection$_current = _._cell = null;
+      _._collection$_modifications = t1;
+      _._collection$_current = _._collection$_cell = null;
       _.$ti = t2;
     },
     IterableBase: function IterableBase() {
@@ -6466,9 +6466,6 @@
     }
   },
   G = {
-    get: function(url, headers) {
-      return G._withClient(new G.get_closure(url, headers), type$.legacy_Response);
-    },
     post: function(url, body) {
       return G._withClient(new G.post_closure(url, null, body, null), type$.legacy_Response);
     },
@@ -6525,10 +6522,6 @@
           }
       });
       return P._asyncStartSync($async$_withClient, $async$completer);
-    },
-    get_closure: function get_closure(t0, t1) {
-      this.url = t0;
-      this.headers = t1;
     },
     post_closure: function post_closure(t0, t1, t2, t3) {
       var _ = this;
@@ -7275,7 +7268,7 @@
     submitHandler$body: function($event) {
       var $async$goto = 0,
         $async$completer = P._makeAsyncAwaitCompleter(type$.dynamic),
-        $async$returnValue, response, t3, t4, t5, token, res, errors, errMsg, t1, t2, email, pass;
+        $async$returnValue, response, t3, t4, token, errors, errMsg, t1, t2, email, pass;
       var $async$submitHandler = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return P._asyncRethrow($async$result, $async$completer);
@@ -7294,46 +7287,29 @@
             case 3:
               // returning from await.
               response = $async$result;
-              t3 = response.statusCode;
-              t4 = response.headers;
-              t5 = response.bodyBytes;
-              $async$goto = t3 === 200 ? 4 : 6;
-              break;
-            case 4:
-              // then
-              token = J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(t4).parameters._map.$index(0, "charset")).decode$1(0, t5)), "token");
-              $event.preventDefault();
-              $async$goto = 7;
-              return P._asyncAwait(G.get("http://localhost:4040/validate/", P.LinkedHashMap_LinkedHashMap$_literal(["authorization", "Bearer " + H.S(token)], t2, t2)), $async$submitHandler);
-            case 7:
-              // returning from await.
-              res = $async$result;
-              $event.preventDefault();
-              if (res.statusCode === 200) {
+              t2 = response.statusCode;
+              t3 = response.headers;
+              t4 = response.bodyBytes;
+              if (t2 === 200) {
+                token = J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(t3).parameters._map.$index(0, "charset")).decode$1(0, t4)), "token");
+                $event.preventDefault();
                 C.HtmlDocument_methods.set$cookie(t1, "token=" + H.S(token) + "; path=/");
                 J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(t1.defaultView)), "http://localhost:4040/dashboard/");
-              } else
-                J.set$href$x(J.get$location$x(W._convertNativeToDart_Window(t1.defaultView)), "/");
-              // goto join
-              $async$goto = 5;
-              break;
-            case 6:
-              // else
-              errors = J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(t4).parameters._map.$index(0, "charset")).decode$1(0, t5)), "errors");
-              t2 = J.getInterceptor$asx(errors);
-              t3 = t2.get$length(errors);
-              if (typeof t3 !== "number") {
-                $async$returnValue = t3.$gt();
-                // goto return
-                $async$goto = 1;
-                break;
+              } else {
+                errors = J.$index$asx(C.C_JsonCodec.decode$1(0, B.encodingForCharset(U._contentTypeForHeaders(t3).parameters._map.$index(0, "charset")).decode$1(0, t4)), "errors");
+                t2 = J.getInterceptor$asx(errors);
+                t3 = t2.get$length(errors);
+                if (typeof t3 !== "number") {
+                  $async$returnValue = t3.$gt();
+                  // goto return
+                  $async$goto = 1;
+                  break;
+                }
+                errMsg = t3 > 1 ? "User credentials are missing." : J.$index$asx(t2.$index(errors, 0), "msg");
+                t1.querySelector(".alert-title").innerText = H._asStringS(errMsg);
+                t1 = t1.querySelector(".alert").style;
+                t1.display = "flex";
               }
-              errMsg = t3 > 1 ? "User credentials are missing." : J.$index$asx(t2.$index(errors, 0), "msg");
-              t1.querySelector(".alert-title").innerText = H._asStringS(errMsg);
-              t1 = t1.querySelector(".alert").style;
-              t1.display = "flex";
-            case 5:
-              // join
             case 1:
               // return
               return P._asyncReturn($async$returnValue, $async$completer);
@@ -7968,7 +7944,7 @@
       t1._asyncComplete$1(null);
       return t1;
     },
-    $signature: 51
+    $signature: 18
   };
   H.NotNullableError.prototype = {
     toString$0: function(_) {
@@ -8534,12 +8510,12 @@
     containsKey$1: function(key) {
       var strings, nums, _this = this;
       if (typeof key == "string") {
-        strings = _this.__js_helper$_strings;
+        strings = _this._strings;
         if (strings == null)
           return false;
         return _this._containsTableEntry$2(strings, key);
       } else if (typeof key == "number" && (key & 0x3ffffff) === key) {
-        nums = _this.__js_helper$_nums;
+        nums = _this._nums;
         if (nums == null)
           return false;
         return _this._containsTableEntry$2(nums, key);
@@ -8559,14 +8535,14 @@
     $index: function(_, key) {
       var strings, cell, t1, nums, _this = this, _null = null;
       if (typeof key == "string") {
-        strings = _this.__js_helper$_strings;
+        strings = _this._strings;
         if (strings == null)
           return _null;
         cell = _this._getTableCell$2(strings, key);
         t1 = cell == null ? _null : cell.hashMapCellValue;
         return t1;
       } else if (typeof key == "number" && (key & 0x3ffffff) === key) {
-        nums = _this.__js_helper$_nums;
+        nums = _this._nums;
         if (nums == null)
           return _null;
         cell = _this._getTableCell$2(nums, key);
@@ -8592,11 +8568,11 @@
       t1._precomputed1._as(key);
       t1._rest[1]._as(value);
       if (typeof key == "string") {
-        strings = _this.__js_helper$_strings;
-        _this._addHashTableEntry$3(strings == null ? _this.__js_helper$_strings = _this._newHashTable$0() : strings, key, value);
+        strings = _this._strings;
+        _this._addHashTableEntry$3(strings == null ? _this._strings = _this._newHashTable$0() : strings, key, value);
       } else if (typeof key == "number" && (key & 0x3ffffff) === key) {
-        nums = _this.__js_helper$_nums;
-        _this._addHashTableEntry$3(nums == null ? _this.__js_helper$_nums = _this._newHashTable$0() : nums, key, value);
+        nums = _this._nums;
+        _this._addHashTableEntry$3(nums == null ? _this._nums = _this._newHashTable$0() : nums, key, value);
       } else
         _this.internalSet$2(key, value);
     },
@@ -8623,13 +8599,13 @@
     forEach$1: function(_, action) {
       var cell, modifications, _this = this;
       H._instanceType(_this)._eval$1("~(1,2)")._as(action);
-      cell = _this.__js_helper$_first;
-      modifications = _this.__js_helper$_modifications;
+      cell = _this._first;
+      modifications = _this._modifications;
       for (; cell != null;) {
         action.call$2(cell.hashMapCellKey, cell.hashMapCellValue);
-        if (modifications !== _this.__js_helper$_modifications)
+        if (modifications !== _this._modifications)
           throw H.wrapException(P.ConcurrentModificationError$(_this));
-        cell = cell.__js_helper$_next;
+        cell = cell._next;
       }
     },
     _addHashTableEntry$3: function(table, key, value) {
@@ -8647,12 +8623,12 @@
       var _this = this,
         t1 = H._instanceType(_this),
         cell = new H.LinkedHashMapCell(t1._precomputed1._as(key), t1._rest[1]._as(value));
-      if (_this.__js_helper$_first == null)
-        _this.__js_helper$_first = _this.__js_helper$_last = cell;
+      if (_this._first == null)
+        _this._first = _this._last = cell;
       else
-        _this.__js_helper$_last = _this.__js_helper$_last.__js_helper$_next = cell;
+        _this._last = _this._last._next = cell;
       ++_this.__js_helper$_length;
-      _this.__js_helper$_modifications = _this.__js_helper$_modifications + 1 & 67108863;
+      _this._modifications = _this._modifications + 1 & 67108863;
       return cell;
     },
     internalComputeHashCode$1: function(key) {
@@ -8724,8 +8700,8 @@
     },
     get$iterator: function(_) {
       var t1 = this.__js_helper$_map,
-        t2 = new H.LinkedHashMapKeyIterator(t1, t1.__js_helper$_modifications, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
-      t2.__js_helper$_cell = t1.__js_helper$_first;
+        t2 = new H.LinkedHashMapKeyIterator(t1, t1._modifications, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
+      t2._cell = t1._first;
       return t2;
     }
   };
@@ -8736,15 +8712,15 @@
     moveNext$0: function() {
       var cell, _this = this,
         t1 = _this.__js_helper$_map;
-      if (_this.__js_helper$_modifications !== t1.__js_helper$_modifications)
+      if (_this._modifications !== t1._modifications)
         throw H.wrapException(P.ConcurrentModificationError$(t1));
-      cell = _this.__js_helper$_cell;
+      cell = _this._cell;
       if (cell == null) {
         _this.set$__js_helper$_current(null);
         return false;
       } else {
         _this.set$__js_helper$_current(cell.hashMapCellKey);
-        _this.__js_helper$_cell = cell.__js_helper$_next;
+        _this._cell = cell._next;
         return true;
       }
     },
@@ -8763,7 +8739,7 @@
     call$2: function(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 50
+    $signature: 51
   };
   H.initHooks_closure1.prototype = {
     call$1: function(tag) {
@@ -9129,13 +9105,13 @@
     call$2: function(error, stackTrace) {
       this.bodyFunction.call$2(1, new H.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 18
+    $signature: 17
   };
   P._wrapJsFunctionForAsync_closure.prototype = {
     call$2: function(errorCode, result) {
       this.$protected(H._asIntS(errorCode), result);
     },
-    $signature: 28
+    $signature: 31
   };
   P.AsyncError.prototype = {
     toString$0: function(_) {
@@ -9392,7 +9368,7 @@
     call$2: function(error, stackTrace) {
       this.$this._completeError$2(error, type$.StackTrace._as(stackTrace));
     },
-    $signature: 38
+    $signature: 42
   };
   P._Future__chainForeignFuture_closure1.prototype = {
     call$0: function() {
@@ -9463,7 +9439,7 @@
     call$1: function(_) {
       return this.originalSource;
     },
-    $signature: 42
+    $signature: 48
   };
   P._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0: function() {
@@ -9965,13 +9941,13 @@
     call$1: function(v) {
       return this.K._is(v);
     },
-    $signature: 48
+    $signature: 49
   };
   P._LinkedHashSet.prototype = {
     get$iterator: function(_) {
       var _this = this,
-        t1 = new P._LinkedHashSetIterator(_this, _this._modifications, _this.$ti._eval$1("_LinkedHashSetIterator<1>"));
-      t1._cell = _this._first;
+        t1 = new P._LinkedHashSetIterator(_this, _this._collection$_modifications, _this.$ti._eval$1("_LinkedHashSetIterator<1>"));
+      t1._collection$_cell = _this._collection$_first;
       return t1;
     },
     get$length: function(_) {
@@ -9984,11 +9960,11 @@
       var strings, nums, _this = this;
       _this.$ti._precomputed1._as(element);
       if (typeof element == "string" && element !== "__proto__") {
-        strings = _this._strings;
-        return _this._collection$_addHashTableEntry$2(strings == null ? _this._strings = P._LinkedHashSet__newHashTable() : strings, element);
+        strings = _this._collection$_strings;
+        return _this._collection$_addHashTableEntry$2(strings == null ? _this._collection$_strings = P._LinkedHashSet__newHashTable() : strings, element);
       } else if (typeof element == "number" && (element & 1073741823) === element) {
-        nums = _this._nums;
-        return _this._collection$_addHashTableEntry$2(nums == null ? _this._nums = P._LinkedHashSet__newHashTable() : nums, element);
+        nums = _this._collection$_nums;
+        return _this._collection$_addHashTableEntry$2(nums == null ? _this._collection$_nums = P._LinkedHashSet__newHashTable() : nums, element);
       } else
         return _this._add$1(element);
     },
@@ -10037,18 +10013,18 @@
       return true;
     },
     _modified$0: function() {
-      this._modifications = this._modifications + 1 & 1073741823;
+      this._collection$_modifications = this._collection$_modifications + 1 & 1073741823;
     },
     _collection$_newLinkedCell$1: function(element) {
       var t1, _this = this,
         cell = new P._LinkedHashSetCell(_this.$ti._precomputed1._as(element));
-      if (_this._first == null)
-        _this._first = _this._last = cell;
+      if (_this._collection$_first == null)
+        _this._collection$_first = _this._collection$_last = cell;
       else {
-        t1 = _this._last;
+        t1 = _this._collection$_last;
         t1.toString;
         cell._previous = t1;
-        _this._last = t1._next = cell;
+        _this._collection$_last = t1._collection$_next = cell;
       }
       ++_this._collection$_length;
       _this._modified$0();
@@ -10057,13 +10033,13 @@
     _unlinkCell$1: function(cell) {
       var _this = this,
         previous = cell._previous,
-        next = cell._next;
+        next = cell._collection$_next;
       if (previous == null)
-        _this._first = next;
+        _this._collection$_first = next;
       else
-        previous._next = next;
+        previous._collection$_next = next;
       if (next == null)
-        _this._last = previous;
+        _this._collection$_last = previous;
       else
         next._previous = previous;
       --_this._collection$_length;
@@ -10087,16 +10063,16 @@
     },
     moveNext$0: function() {
       var _this = this,
-        cell = _this._cell,
+        cell = _this._collection$_cell,
         t1 = _this._set;
-      if (_this._modifications !== t1._modifications)
+      if (_this._collection$_modifications !== t1._collection$_modifications)
         throw H.wrapException(P.ConcurrentModificationError$(t1));
       else if (cell == null) {
         _this.set$_collection$_current(null);
         return false;
       } else {
         _this.set$_collection$_current(_this.$ti._eval$1("1?")._as(cell._element));
-        _this._cell = cell._next;
+        _this._collection$_cell = cell._collection$_next;
         return true;
       }
     },
@@ -10110,7 +10086,7 @@
     call$2: function(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 49
+    $signature: 50
   };
   P.ListBase.prototype = {$isEfficientLengthIterable: 1, $isIterable: 1, $isList: 1};
   P.ListMixin.prototype = {
@@ -12465,25 +12441,16 @@
       return this.$this.$ti._eval$1("~(CanonicalizedMap.C,MapEntry<CanonicalizedMap.K,CanonicalizedMap.V>)");
     }
   };
-  G.get_closure.prototype = {
-    call$1: function(client) {
-      return client._sendUnstreamed$3("GET", this.url, type$.legacy_Map_of_legacy_String_and_legacy_String._as(this.headers));
-    },
-    $signature: 13
-  };
   G.post_closure.prototype = {
     call$1: function(client) {
       var _this = this;
       return client._sendUnstreamed$5("POST", _this.url, type$.legacy_Map_of_legacy_String_and_legacy_String._as(_this.headers), _this.body, _this.encoding);
     },
-    $signature: 13
+    $signature: 28
   };
   E.BaseClient.prototype = {
     _sendUnstreamed$5: function(method, url, headers, body, encoding) {
       return this._sendUnstreamed$body$BaseClient(method, url, type$.legacy_Map_of_legacy_String_and_legacy_String._as(headers), body, encoding);
-    },
-    _sendUnstreamed$3: function(method, url, headers) {
-      return this._sendUnstreamed$5(method, url, headers, null, null);
     },
     _sendUnstreamed$body$BaseClient: function(method, url, headers, body, encoding) {
       var $async$goto = 0,
@@ -12498,10 +12465,7 @@
               // Function start
               t1 = P.Uri_parse(url);
               request = O.Request$(method, t1);
-              if (headers != null)
-                request.headers.addAll$1(0, headers);
-              if (body != null)
-                request.set$body(0, body);
+              request.set$body(0, body);
               $async$temp1 = U;
               $async$goto = 3;
               return P._asyncAwait($async$self.send$1(0, request), $async$_sendUnstreamed$5);
@@ -12631,7 +12595,7 @@
     },
     close$0: function(_) {
       var t1;
-      for (t1 = this._xhrs, t1 = P._LinkedHashSetIterator$(t1, t1._modifications, t1.$ti._precomputed1); t1.moveNext$0();)
+      for (t1 = this._xhrs, t1 = P._LinkedHashSetIterator$(t1, t1._collection$_modifications, t1.$ti._precomputed1); t1.moveNext$0();)
         t1._collection$_current.abort();
     }
   };
@@ -12865,13 +12829,13 @@
     call$1: function(match) {
       return "\\" + H.S(match.$index(0, 0));
     },
-    $signature: 14
+    $signature: 13
   };
   N.expectQuotedString_closure.prototype = {
     call$1: function(match) {
       return match.$index(0, 1);
     },
-    $signature: 14
+    $signature: 13
   };
   M.Context.prototype = {
     get$current: function() {
@@ -13095,13 +13059,13 @@
     call$1: function(part) {
       return H._asStringS(part) !== "";
     },
-    $signature: 15
+    $signature: 14
   };
   M.Context_split_closure.prototype = {
     call$1: function(part) {
       return H._asStringS(part).length !== 0;
     },
-    $signature: 15
+    $signature: 14
   };
   M._validateArgList_closure.prototype = {
     call$1: function(arg) {
@@ -14413,23 +14377,23 @@
       _instance_0_i = hunkHelpers._instance_0i,
       _instance_2_i = hunkHelpers._instance_2i,
       _static = hunkHelpers.installStaticTearOff;
-    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 16);
+    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 15);
     _static_1(P, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 4);
     _static_1(P, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 4);
     _static_1(P, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 4);
     _static_0(P, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
     _static_1(P, "async___nullDataHandler$closure", "_nullDataHandler", 1);
-    _instance(P._Completer.prototype, "get$completeError", 0, 1, null, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 31, 0);
-    _instance_2_u(P._Future.prototype, "get$_completeError", "_completeError$2", 37);
-    _static_2(P, "collection___defaultEquals$closure", "_defaultEquals", 17);
+    _instance(P._Completer.prototype, "get$completeError", 0, 1, null, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 37, 0);
+    _instance_2_u(P._Future.prototype, "get$_completeError", "_completeError$2", 38);
+    _static_2(P, "collection___defaultEquals$closure", "_defaultEquals", 16);
     _static_1(P, "collection___defaultHashCode$closure", "_defaultHashCode", 5);
-    _static_2(P, "collection_ListMixin__compareAny$closure", "ListMixin__compareAny", 16);
+    _static_2(P, "collection_ListMixin__compareAny$closure", "ListMixin__compareAny", 15);
     _static_1(P, "convert___defaultToEncodable$closure", "_defaultToEncodable", 6);
     var _;
     _instance_1_i(_ = P._ByteCallbackSink.prototype, "get$add", "add$1", 19);
     _instance_0_i(_, "get$close", "close$0", 0);
     _static_1(P, "core__identityHashCode$closure", "identityHashCode", 5);
-    _static_2(P, "core__identical$closure", "identical", 17);
+    _static_2(P, "core__identical$closure", "identical", 16);
     _static_1(P, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 52);
     _instance_2_i(W.HttpRequest.prototype, "get$setRequestHeader", "setRequestHeader$2", 25);
     _static(P, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
@@ -14451,7 +14415,7 @@
     _inherit(P.ListBase, P._ListBase_Object_ListMixin);
     _inherit(H.UnmodifiableListBase, P.ListBase);
     _inherit(H.CodeUnits, H.UnmodifiableListBase);
-    _inheritMany(H.Closure, [H.nullFuture_closure, H.Instantiation, H.TearOffClosure, H.JsLinkedHashMap_values_closure, H.JsLinkedHashMap_addAll_closure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__asyncCompleteWithValue_closure, P._Future__chainFuture_closure, P._Future__asyncCompleteError_closure, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_Stream$fromIterable_closure, P.Stream_length_closure, P.Stream_length_closure0, P.Stream_first_closure, P.Stream_first_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndValue_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P._LinkedCustomHashMap_closure, P.LinkedHashMap_LinkedHashMap$from_closure, P.MapBase_mapToString_closure, P.Utf8Decoder__decoder_closure, P.Utf8Decoder__decoderNonfatal_closure, P._JsonStringifier_writeMap_closure, P.Uri__parseIPv4Address_error, P.Uri_parseIPv6Address_error, P.Uri_parseIPv6Address_parseHex, P._createTables_build, P._createTables_setChars, P._createTables_setRange, W._EventStreamSubscription_closure, W._EventStreamSubscription_onData_closure, P._AcceptStructuredClone_walk_closure, P.promiseToFuture_closure, P.promiseToFuture_closure0, M.CanonicalizedMap_addAll_closure, M.CanonicalizedMap_forEach_closure, G.get_closure, G.post_closure, G.BaseRequest_closure, G.BaseRequest_closure0, O.BrowserClient_send_closure, O.BrowserClient_send__closure, O.BrowserClient_send__closure0, O.BrowserClient_send_closure0, Z.ByteStream_toBytes_closure, Z.CaseInsensitiveMap$from_closure, Z.CaseInsensitiveMap$from_closure0, R.MediaType_MediaType$parse_closure, R.MediaType_toString_closure, R.MediaType_toString__closure, N.expectQuotedString_closure, M.Context_joinAll_closure, M.Context_split_closure, M._validateArgList_closure, U.Highlighter_closure, U.Highlighter$__closure, U.Highlighter$___closure, U.Highlighter$__closure0, U.Highlighter__collateLines_closure, U.Highlighter__collateLines_closure0, U.Highlighter__collateLines_closure1, U.Highlighter__collateLines__closure, U.Highlighter_highlight_closure, U.Highlighter__writeFileStart_closure, U.Highlighter__writeMultilineHighlights_closure, U.Highlighter__writeMultilineHighlights_closure0, U.Highlighter__writeMultilineHighlights_closure1, U.Highlighter__writeMultilineHighlights_closure2, U.Highlighter__writeMultilineHighlights__closure, U.Highlighter__writeMultilineHighlights__closure0, U.Highlighter__writeHighlightedText_closure, U.Highlighter__writeIndicator_closure, U.Highlighter__writeIndicator_closure0, U.Highlighter__writeIndicator_closure1, U.Highlighter__writeSidebar_closure, U._Highlight_closure]);
+    _inheritMany(H.Closure, [H.nullFuture_closure, H.Instantiation, H.TearOffClosure, H.JsLinkedHashMap_values_closure, H.JsLinkedHashMap_addAll_closure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._awaitOnObject_closure, P._awaitOnObject_closure0, P._wrapJsFunctionForAsync_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__asyncCompleteWithValue_closure, P._Future__chainFuture_closure, P._Future__asyncCompleteError_closure, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_Stream$fromIterable_closure, P.Stream_length_closure, P.Stream_length_closure0, P.Stream_first_closure, P.Stream_first_closure0, P._BufferingStreamSubscription__sendError_sendError, P._BufferingStreamSubscription__sendDone_sendDone, P._PendingEvents_schedule_closure, P._cancelAndValue_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P._LinkedCustomHashMap_closure, P.LinkedHashMap_LinkedHashMap$from_closure, P.MapBase_mapToString_closure, P.Utf8Decoder__decoder_closure, P.Utf8Decoder__decoderNonfatal_closure, P._JsonStringifier_writeMap_closure, P.Uri__parseIPv4Address_error, P.Uri_parseIPv6Address_error, P.Uri_parseIPv6Address_parseHex, P._createTables_build, P._createTables_setChars, P._createTables_setRange, W._EventStreamSubscription_closure, W._EventStreamSubscription_onData_closure, P._AcceptStructuredClone_walk_closure, P.promiseToFuture_closure, P.promiseToFuture_closure0, M.CanonicalizedMap_addAll_closure, M.CanonicalizedMap_forEach_closure, G.post_closure, G.BaseRequest_closure, G.BaseRequest_closure0, O.BrowserClient_send_closure, O.BrowserClient_send__closure, O.BrowserClient_send__closure0, O.BrowserClient_send_closure0, Z.ByteStream_toBytes_closure, Z.CaseInsensitiveMap$from_closure, Z.CaseInsensitiveMap$from_closure0, R.MediaType_MediaType$parse_closure, R.MediaType_toString_closure, R.MediaType_toString__closure, N.expectQuotedString_closure, M.Context_joinAll_closure, M.Context_split_closure, M._validateArgList_closure, U.Highlighter_closure, U.Highlighter$__closure, U.Highlighter$___closure, U.Highlighter$__closure0, U.Highlighter__collateLines_closure, U.Highlighter__collateLines_closure0, U.Highlighter__collateLines_closure1, U.Highlighter__collateLines__closure, U.Highlighter_highlight_closure, U.Highlighter__writeFileStart_closure, U.Highlighter__writeMultilineHighlights_closure, U.Highlighter__writeMultilineHighlights_closure0, U.Highlighter__writeMultilineHighlights_closure1, U.Highlighter__writeMultilineHighlights_closure2, U.Highlighter__writeMultilineHighlights__closure, U.Highlighter__writeMultilineHighlights__closure0, U.Highlighter__writeHighlightedText_closure, U.Highlighter__writeIndicator_closure, U.Highlighter__writeIndicator_closure0, U.Highlighter__writeIndicator_closure1, U.Highlighter__writeSidebar_closure, U._Highlight_closure]);
     _inheritMany(P.Iterable, [H.EfficientLengthIterable, H.MappedIterable, H.WhereIterable, H.ExpandIterable, H.SkipIterable, H.WhereTypeIterable, P.IterableBase, H._StringAllMatchesIterable]);
     _inheritMany(H.EfficientLengthIterable, [H.ListIterable, H.EmptyIterable, H.LinkedHashMapKeyIterable]);
     _inheritMany(H.ListIterable, [H.SubListIterable, H.MappedListIterable, H.ReversedListIterable, P._JsonMapKeyIterable]);
@@ -14533,7 +14497,7 @@
     mangledNames: {},
     getTypeFromName: getGlobalFromName,
     metadata: [],
-    types: ["~()", "~(@)", "Null(ProgressEvent*)", "bool(_Highlight)", "~(~())", "int(Object?)", "@(@)", "Null(@)", "Null()", "@()", "~(Object?,Object?)", "~(Uint8List,String,int)", "~(Event)", "Future<Response*>*(Client*)", "String*(Match*)", "bool(String)", "int(@,@)", "bool(Object?,Object?)", "Null(@,StackTrace)", "~(Object?)", "~(String,int)", "~(String[@])", "int(int,int)", "Uint8List(@,@)", "Null(~())", "~(String,String)", "@(String)", "@(@,@)", "~(int,@)", "bool*(String*,String*)", "int*(String*)", "~(Object[StackTrace?])", "~(List<int*>*)", "String*(String*)", "bool*(String*)", "MediaType*()", "~(MouseEvent*)", "~(Object,StackTrace)", "Null(Object,StackTrace)", "String(String?)", "String?()", "int(_Line)", "_Future<@>(@)", "Uri?(_Line)", "Uri?(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(List<_Highlight>)", "SourceSpanWithContext()", "bool(@)", "~(@,@)", "@(@,String)", "Future<Null>()", "String(String)", "0^(0^,0^)<num>", "Null(String*,String*)"],
+    types: ["~()", "~(@)", "Null(ProgressEvent*)", "bool(_Highlight)", "~(~())", "int(Object?)", "@(@)", "Null(@)", "Null()", "@()", "~(Object?,Object?)", "~(Uint8List,String,int)", "~(Event)", "String*(Match*)", "bool(String)", "int(@,@)", "bool(Object?,Object?)", "Null(@,StackTrace)", "Future<Null>()", "~(Object?)", "~(String,int)", "~(String[@])", "int(int,int)", "Uint8List(@,@)", "Null(~())", "~(String,String)", "@(String)", "@(@,@)", "Future<Response*>*(Client*)", "bool*(String*,String*)", "int*(String*)", "~(int,@)", "~(List<int*>*)", "String*(String*)", "bool*(String*)", "MediaType*()", "~(MouseEvent*)", "~(Object[StackTrace?])", "~(Object,StackTrace)", "String(String?)", "String?()", "int(_Line)", "Null(Object,StackTrace)", "Uri?(_Line)", "Uri?(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(List<_Highlight>)", "SourceSpanWithContext()", "_Future<@>(@)", "bool(@)", "~(@,@)", "@(@,String)", "String(String)", "0^(0^,0^)<num>", "Null(String*,String*)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: typeof Symbol == "function" && typeof Symbol() == "symbol" ? Symbol("$ti") : "$ti"
