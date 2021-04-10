@@ -1,5 +1,9 @@
 # Standalone-Server
 
+[![CI](https://github.com/ravgeetdhillon/dart_shelf_server_sample/actions/workflows/ci.yml/badge.svg)](https://github.com/ravgeetdhillon/dart_shelf_server_sample/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://ansicolortags.readthedocs.io/?badge=latest)
+
 - Standalone Server is a web server built using [Shelf](https://pub.dev/packages/shelf) in dart.
 - A sample project with an entrypoint in `bin/`, library code in `lib/`,  client side code in `public`, and example unit test in `test/`.
 
