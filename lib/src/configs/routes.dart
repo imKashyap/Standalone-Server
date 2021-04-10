@@ -6,7 +6,7 @@ import 'package:standalone_server/src/apis/auth_api.dart';
 import 'package:standalone_server/src/apis/dash_api.dart';
 import 'package:standalone_server/src/apis/static_assets_api.dart';
 import 'package:standalone_server/src/apis/user_api.dart';
-import 'package:standalone_server/src/apis/validators/file_api.dart';
+import 'package:standalone_server/src/apis/file_api.dart';
 
 Router routes() {
   var mySecret = 'myJWTSecret';
