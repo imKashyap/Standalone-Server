@@ -5,7 +5,7 @@
 [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](http://ansicolortags.readthedocs.io/?badge=latest)
 
 - Standalone Server is a web server built using [Shelf](https://pub.dev/packages/shelf) in dart.
-- A sample project with an entrypoint in `bin/`, library code in `lib/`,  client side code in `public`, and example unit test in `test/`.
+- A sample project with an entrypoint in `bin/`, library code in `lib/`,  client side code in `public/`, and example unit test in `test/`.
 
 
 <img src="resources/demo.gif" alt="Demo Video" width=800>
