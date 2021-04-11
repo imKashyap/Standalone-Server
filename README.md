@@ -6,6 +6,7 @@
 
 - Standalone Server is a web server built using [Shelf](https://pub.dev/packages/shelf) in dart.
 - A sample project with an entrypoint in `bin/`, library code in `lib/`,  client side code in `public/`, and example unit test in `test/`.
+- The server serves some static HTML files (including CSS ) & a PDF file. I have implemented  user authentication using JWT tokens. Only once the user gets authenticated, He/She can view the PDF or Edit Name.
 
 
 <img src="resources/demo.gif" alt="Demo Video" width=800>
@@ -27,12 +28,12 @@
 ## Features
 Following features have been implemented:
 
-- [x] Serve REST requests (GET, POST, PATCH, DELETE)
-- [x] Serve static files from the server to authenticated users only
-- [x] Render HTML templates
-- [x] Convert Dart to JS for use client-side using dart2js compiler
-- [x] Authenticate users using JWT Token
-- [x] Local JSON Database under `database/users.json` 
+- ✅ Serve REST requests (GET, POST, PATCH, DELETE)
+- ✅ Serve static files from the server to authenticated users only
+- ✅ Render HTML templates
+- ✅ Convert Dart to JS for use client-side using dart2js compiler
+- ✅ Authenticate users using JWT Token
+- ✅ Local JSON Database under `database/users.json` 
 
 ***
 
