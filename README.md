@@ -7,6 +7,7 @@
 - Standalone Server is a web server built using [Shelf](https://pub.dev/packages/shelf) in dart.
 - A sample project with an entrypoint in `bin/`, library code in `lib/`,  client side code in `public/`, and example unit test in `test/`.
 - The server serves some static HTML files (including CSS ) & a PDF file. I have implemented  user authentication using JWT tokens. Only once the user gets authenticated, He/She can view the PDF or Edit Name.
+- To handle authentication on client-side, I have used cookies to store tokens. This ensures flawless and secured frontend-backend communication.
 
 
 <img src="resources/demo.gif" alt="Demo Video" width=800>
