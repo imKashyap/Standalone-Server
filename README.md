@@ -106,7 +106,7 @@ pub get
 nodemon
 ```
 
-> Nodemon is an NPM package used to watch for the changes in source code and restart the shelf server automatically. You can install it by doing `npm i -g nodemon`.
+> Nodemon is an NPM package used to watch for the changes in source code and restart the shelf server automatically. You can install it by doing `npm i -g nodemon`. But make sure node is installed in your machine.
 
 Visit [http://localhost:4040](http://localhost:4040) and make sure you see the following screen:
 
